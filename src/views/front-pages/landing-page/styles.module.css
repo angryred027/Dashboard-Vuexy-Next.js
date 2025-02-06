@@ -1,0 +1,69 @@
+.heroSectionBg {
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: absolute;
+  inline-size: 100%;
+  inset-block-start: -12%;
+  pointer-events: none;
+  z-index: 0;
+  border-end-start-radius: 3.5rem;
+  border-end-end-radius: 3.5rem;
+  &.bgLight {
+    background: linear-gradient(138.18deg, #eae8fd 0%, #fce5e6 94.44%);
+  }
+  &.bgDark {
+    background: var(--mui-palette-background-default);
+  }
+}
+
+.heroSecDashboard {
+  inline-size: 100%;
+}
+
+.heroSectionElements {
+  inset-block-start: 0%;
+  inset-inline-end: 0%;
+  img {
+    inline-size: 100%;
+  }
+}
+
+.heroText {
+  background: linear-gradient(135deg, #28c76f 0%, #5a4aff 47.92%, #ff3739 100%) repeat;
+  background-size: 200% 200%;
+  background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: rgba(0, 0, 0, 0);
+  animation: shine 2s ease-in-out infinite alternate;
+}
+
+@keyframes shine {
+  0% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.teamCard {
+  border-start-start-radius: 90px;
+  border-start-end-radius: 20px;
+}
+
+.contactRadius {
+  border-start-start-radius: 3.75rem;
+  border-start-end-radius: var(--mui-shape-borderRadius);
+  border-end-end-radius: var(--mui-shape-borderRadius);
+  border-end-start-radius: var(--mui-shape-borderRadius);
+}
+
+.sectionStartRadius {
+  border-start-start-radius: 3.75rem;
+  border-start-end-radius: 3.75rem;
+}

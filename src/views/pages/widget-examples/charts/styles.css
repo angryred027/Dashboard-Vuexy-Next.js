@@ -1,0 +1,7 @@
+#carrier-performance .apexcharts-legend .apexcharts-legend-series {
+  border: 1px solid var(--mui-palette-divider);
+  border-radius: var(--mui-shape-borderRadius);
+  block-size: 83%;
+  padding-block: 4px;
+  padding-inline: 16px;
+}
