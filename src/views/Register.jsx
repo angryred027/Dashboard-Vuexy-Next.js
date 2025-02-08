@@ -2,6 +2,8 @@
 
 // React Imports
 import { useState } from 'react'
+import { signIn } from 'next-auth/react'
+
 
 // Next Imports
 import Link from 'next/link'
@@ -107,16 +109,31 @@ const Register = ({ mode }) => {
       body: JSON.stringify({userName, email, fullName, password, telegram}),
     });
 
-    const data = await res.json();
     if (res && res.ok) {
-      console.log("adfadsfasdfasdfsdafsadf")
-      // // Vars
-      const redirectURL = searchParams.get('redirectTo') ?? '/'
 
-      router.replace(getLocalizedUrl(redirectURL, locale))
-    } else {
-        const message = data.message;
-        setError(message);
+      const response = await signIn('credentials', {
+           email: email,
+           password: password,
+           redirect: false
+      })
+
+      if (response && response.ok) {
+        // Vars
+        const redirectURL = searchParams.get('redirectTo') ?? '/'
+
+        router.replace(getLocalizedUrl(redirectURL, locale))
+      } else {
+            if (response?.error) {
+              const error = JSON.parse(response.error)
+
+              setError(error)
+            }
+      }
+    }
+    else{
+      const error = JSON.parse(res.error)
+      console.log(res)
+      setError(error);
     }
   }
 

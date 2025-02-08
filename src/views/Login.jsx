@@ -189,9 +189,9 @@ const Login = ({ mode }) => {
                     field.onChange(e.target.value)
                     errorState !== null && setErrorState(null)
                   }}
-                  {...((errors.email || errorState !== null) && {
+                  {...((errors.email || (errorState !== null && errorState.errorType === 'email')) && {
                     error: true,
-                    helperText: errors?.email?.message || errorState?.message[0]
+                    helperText: errors?.email?.message ||  errorState?.message
                   })}
                 />
               )}
@@ -227,7 +227,10 @@ const Login = ({ mode }) => {
                       )
                     }
                   }}
-                  {...(errors.password && { error: true, helperText: errors.password.message })}
+                  {...((errors.email || (errorState !== null && errorState.errorType === 'password')) && {
+                    error: true,
+                    helperText: errors?.email?.message || errorState?.message
+                  })}
                 />
               )}
             />

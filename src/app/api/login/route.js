@@ -22,7 +22,8 @@ export async function POST(req) {
     if(!isPasswordValid){
       return NextResponse.json(
         {
-          message: ['Password is incorrect!']
+          errorType: 'password',
+          message: 'Password is incorrect!',
         },
         {
           status: 401,
@@ -40,7 +41,8 @@ export async function POST(req) {
   } else {
     return NextResponse.json(
       {
-        message: ['Email is not exist']
+        errorType: 'email',
+        message: 'Email is not exist',
       },
       {
         status: 401,

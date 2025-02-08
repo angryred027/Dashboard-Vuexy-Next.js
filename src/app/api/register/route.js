@@ -18,7 +18,7 @@ export async function POST(req) {
   })
 
   if (user) {
-      return NextResponse.json({ message: 'Email already exists' }, { status: 300 });
+      return NextResponse.json({ error: 'Email already exists' }, { status: 400 });
   }
   else {
     try {
@@ -37,10 +37,10 @@ export async function POST(req) {
         return NextResponse.json({ message: 'Registered Successfully!' }, { status: 200 });
       }
       else{
-        return NextResponse.json({ message: 'Registered Failed!' }, { status: 400 });
+        return NextResponse.json({ error: 'Registered Failed!' }, { status: 400 });
       }
     } catch (error) {
-        return NextResponse.json({ message: 'Register Failed: ' + error }, { status: 400 });
+        return NextResponse.json({ error: 'Register Failed: ' + error }, { status: 401 });
     }
   }
 }
