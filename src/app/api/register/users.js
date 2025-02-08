@@ -3,8 +3,8 @@
 export const users = [
   {
     id: 1,
-    name: 'John Doe',
-    username: 'johndoe',
+    full_name: 'John Doe',
+    user_name: 'johndoe',
     telegram: '@johndoe',
     password: 'admin',
     email: 'admin@vuexy.com',

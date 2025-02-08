@@ -5,7 +5,8 @@ import { useState } from 'react'
 
 // Next Imports
 import Link from 'next/link'
-import { useParams } from 'next/navigation'
+import { useParams, useRouter, useSearchParams } from 'next/navigation'
+
 
 // MUI Imports
 import useMediaQuery from '@mui/material/useMediaQuery'
@@ -31,6 +32,7 @@ import { useSettings } from '@core/hooks/useSettings'
 
 // Util Imports
 import { getLocalizedUrl } from '@/utils/i18n'
+
 
 // Styled Custom Components
 const RegisterIllustration = styled('img')(({ theme }) => ({
@@ -59,6 +61,15 @@ const MaskImg = styled('img')({
 const Register = ({ mode }) => {
   // States
   const [isPasswordShown, setIsPasswordShown] = useState(false)
+  const router = useRouter()
+  const searchParams = useSearchParams()
+
+  const [fullName, setFullName] = useState("");
+  const [userName, setUserName] = useState("");
+  const [email, setEmail]       = useState("");
+  const [telegram, setTelegram] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError]       = useState("");
 
   // Vars
   const darkImg = '/images/pages/auth-mask-dark.png'
@@ -75,6 +86,7 @@ const Register = ({ mode }) => {
   const hidden = useMediaQuery(theme.breakpoints.down('md'))
   const authBackground = useImageVariant(mode, lightImg, darkImg)
 
+
   const characterIllustration = useImageVariant(
     mode,
     lightIllustration,
@@ -84,6 +96,29 @@ const Register = ({ mode }) => {
   )
 
   const handleClickShowPassword = () => setIsPasswordShown(show => !show)
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setError("");
+
+    const res = await fetch('/api/register', {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({userName, email, fullName, password, telegram}),
+    });
+
+    const data = await res.json();
+    if (res && res.ok) {
+      console.log("adfadsfasdfasdfsdafsadf")
+      // // Vars
+      const redirectURL = searchParams.get('redirectTo') ?? '/'
+
+      router.replace(getLocalizedUrl(redirectURL, locale))
+    } else {
+        const message = data.message;
+        setError(message);
+    }
+  }
 
   return (
     <div className='flex bs-full justify-center'>
@@ -107,17 +142,27 @@ const Register = ({ mode }) => {
         </Link>
         <div className='flex flex-col gap-6 is-full sm:is-auto md:is-full sm:max-is-[400px] md:max-is-[unset] mbs-8 sm:mbs-11 md:mbs-0'>
           <div className='flex flex-col gap-1'>
-            <Typography variant='h4'>Adventure starts here 🚀</Typography>
-            <Typography>Make your app management easy and fun!</Typography>
+            <Typography variant='h4'>Welcome, Let's Grow Together!</Typography>
+            <Typography>Build Your Dreams!</Typography>
           </div>
-          <form noValidate autoComplete='off' onSubmit={e => e.preventDefault()} className='flex flex-col gap-6'>
-            <CustomTextField autoFocus fullWidth label='Username' placeholder='Enter your username' />
-            <CustomTextField fullWidth label='Email' placeholder='Enter your email' />
+          <form noValidate autoComplete='on' onSubmit={handleSubmit} className='flex flex-col gap-6'>
+            <CustomTextField autoFocus fullWidth label='* Full Name' placeholder='Enter your full name'
+            onChange={(e) => {setFullName(e.target.value)}} />
+            <CustomTextField fullWidth label='* User Name' placeholder='Enter your user name'
+              onChange={(e) => {setUserName(e.target.value)}}
+            />
+            <CustomTextField fullWidth label='Telegram' placeholder='Enter your Telegram ID (optional)'
+              onChange={(e) => {setTelegram(e.target.value)}}
+            />
+            <CustomTextField fullWidth label='* Email' placeholder='Enter your email'
+              onChange={(e) => {setEmail(e.target.value)}}
+             />
             <CustomTextField
               fullWidth
               label='Password'
               placeholder='············'
               type={isPasswordShown ? 'text' : 'password'}
+              onChange={(e) => {setPassword(e.target.value)}}
               slotProps={{
                 input: {
                   endAdornment: (
@@ -144,10 +189,11 @@ const Register = ({ mode }) => {
             <Button fullWidth variant='contained' type='submit'>
               Sign Up
             </Button>
+            {error && <p className="text-red-500">{error}</p>}
             <div className='flex justify-center items-center flex-wrap gap-2'>
               <Typography>Already have an account?</Typography>
               <Typography component={Link} href={getLocalizedUrl('/login', locale)} color='primary.main'>
-                Sign in instead
+                Sign in
               </Typography>
             </div>
             <Divider className='gap-2'>or</Divider>

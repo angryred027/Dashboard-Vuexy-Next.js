@@ -2,32 +2,49 @@
 import { NextResponse } from 'next/server'
 
 // Mock data for demo purpose
-import { users } from './users'
+import { PrismaClient } from '@prisma/client';
+import bcrypt from 'bcrypt';
 
+const prisma = new PrismaClient();
 export async function POST(req) {
   // Vars
   const { email, password } = await req.json()
-  const user = users.find(u => u.email === email && u.password === password)
-  let response = null
+  const user = await prisma.user.findUnique({
+    where: {
+      email: email,
+    }
+  });
 
   if (user) {
-    const { password: _, ...filteredUserData } = user
 
+    const isPasswordValid = await bcrypt.compare(password, user.password);
+
+    if(!isPasswordValid){
+      return NextResponse.json(
+        {
+          message: ['Password is incorrect!']
+        },
+        {
+          status: 401,
+          statusText: 'Please input correctly!'
+        }
+      )
+    }
+
+    let response = null;
+    const { password: _, ...filteredUserData } = user
     response = {
       ...filteredUserData
     }
-
-    return NextResponse.json(response)
+    return NextResponse.json(response);
   } else {
-    // We return 401 status code and error message if user is not found
     return NextResponse.json(
       {
-        // We create object here to separate each error message for each field in case of multiple errors
-        message: ['Email or Password is invalid']
+        message: ['Email is not exist']
       },
       {
         status: 401,
-        statusText: 'Unauthorized Access'
+        statusText: 'Please sign up!'
       }
     )
   }
