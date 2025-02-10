@@ -102,7 +102,7 @@ const Login = ({ mode }) => {
   } = useForm({
     resolver: valibotResolver(schema),
     defaultValues: {
-      email: 'admin@vuexy.com',
+      email: 'gilvesgonzalez@gmail.com',
       password: 'admin'
     }
   })
@@ -162,7 +162,7 @@ const Login = ({ mode }) => {
           </div>
           <Alert icon={false} className='bg-[var(--mui-palette-primary-lightOpacity)]'>
             <Typography variant='body2' color='primary.main'>
-              Email: <span className='font-medium'>admin@vuexy.com</span> / Pass:{' '}
+              Email: <span className='font-medium'>gilvesgonzalez@gmail.com</span> / Pass:{' '}
               <span className='font-medium'>admin</span>
             </Typography>
           </Alert>
@@ -261,6 +261,15 @@ const Login = ({ mode }) => {
               startIcon={<img src='/images/logos/google.png' alt='Google' width={22} />}
               sx={{ '& .MuiButton-startIcon': { marginInlineEnd: 3 } }}
               onClick={() => signIn('google')}
+            >
+              Sign in with Google
+            </Button>
+            <Button
+              color='primary'
+              className='self-center text-textPrimary'
+              startIcon={<img src='/images/logos/github.png' alt='Google' width={22} />}
+              sx={{ '& .MuiButton-startIcon': { marginInlineEnd: 3 } }}
+              onClick={() => signIn('github')}
             >
               Sign in with Google
             </Button>

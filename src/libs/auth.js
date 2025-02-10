@@ -1,13 +1,33 @@
 // Third-party Imports
 import CredentialProvider from 'next-auth/providers/credentials'
 import GoogleProvider from 'next-auth/providers/google'
+import GitHubProvider from 'next-auth/providers/github';
 import { PrismaAdapter } from '@auth/prisma-adapter'
 import { PrismaClient } from '@prisma/client'
 
 const prisma = new PrismaClient()
 
+export const prismaAdapter = PrismaAdapter(prisma);
+
+export const getUserByAccount = async (providerAccountId, provider) => {
+  const account = await prisma.account.findUnique({
+    where: {
+      // provider_providerAccountId: {
+      //   providerAccountId: providerAccountId,
+      //   provider: provider,
+      // },
+      provider: provider,
+      providerAccountId: providerAccountId,
+    },
+    select: {
+      user: true,
+    },
+  });
+  return account?.user || null;
+};
+
 export const authOptions = {
-  adapter: PrismaAdapter(prisma),
+  adapter: prismaAdapter,
 
   // ** Configure one or more authentication providers
   // ** Please refer to https://next-auth.js.org/configuration/options#providers for more `providers` options
@@ -66,7 +86,12 @@ export const authOptions = {
     GoogleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET
-    })
+    }),
+    GitHubProvider({
+      clientId: process.env.GITHUB_CLIENT_ID,
+      clientSecret: process.env.GITHUB_CLIENT_SECRET,
+      authorization: { params: { prompt: 'login' } },
+    }),
 
     // ** ...add more providers here
   ],
@@ -101,6 +126,7 @@ export const authOptions = {
      * the `session()` callback. So we have to add custom parameters in `token`
      * via `jwt()` callback to make them accessible in the `session()` callback
      */
+
     async jwt({ token, user }) {
       if (user) {
         /*
@@ -119,6 +145,45 @@ export const authOptions = {
       }
 
       return session
-    }
-  }
-}
+    },
+
+    // async signIn({ user, account, profile }) {
+    //   // console.log('User:', user);
+    //   // console.log('Account:', account);
+    //   // console.log('Profile:', profile);
+
+    //   // Check if the user already exists in the database
+    //   const existingUser = await prisma.user.findUnique({
+    //     where: { email: user.email },
+    //   });
+
+    //   console.log('Existing User:', existingUser); // Debugging
+
+    //   // If the user doesn't exist, create a new user in the database
+    //   if (!existingUser) {
+    //     // await prisma.user.create({
+    //     //   data: {
+    //     //     email: user.email,
+    //     //     userName: user.name,
+    //     //     fullName: user.name,
+    //     //     password: "123456",
+    //     //     image: user.image,
+    //     //     provider: account.provider,
+    //     //   },
+    //     // });
+    //   } else if (existingUser && existingUser.provider !== account.provider) {
+    //     // Optionally, update the provider if it differs from the current provider.
+    //     // await prisma.user.update({
+    //     //   where: { email: user.email },
+    //     //   data: { provider: account.provider },
+    //     // });
+    //   }
+
+    //   // return existingUser;
+    // },
+  },
+
+  secret: process.env.NEXTAUTH_SECRET,
+  debug: true, // Enable debugging
+  allowDangerousEmailAccountLinking: true,
+};

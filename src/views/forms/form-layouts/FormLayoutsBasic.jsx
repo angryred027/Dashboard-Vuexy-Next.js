@@ -33,14 +33,14 @@ const FormLayoutsBasic = () => {
         <form onSubmit={e => e.preventDefault()}>
           <Grid container spacing={6}>
             <Grid size={{ xs: 12 }}>
-              <CustomTextField fullWidth label='Name' placeholder='John Doe' />
+              <CustomTextField fullWidth label='Name' placeholder='Gilves Gonzalez' />
             </Grid>
             <Grid size={{ xs: 12 }}>
               <CustomTextField
                 fullWidth
                 type='email'
                 label='Email'
-                placeholder='johndoe@gmail.com'
+                placeholder='gilvesg@gmail.com'
                 helperText='You can use letters, numbers & periods'
               />
             </Grid>

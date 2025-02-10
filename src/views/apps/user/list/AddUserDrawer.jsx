@@ -100,7 +100,7 @@ const AddUserDrawer = props => {
                 {...field}
                 fullWidth
                 label='Full Name'
-                placeholder='John Doe'
+                placeholder='Gilves Gonzalez'
                 {...(errors.fullName && { error: true, helperText: 'This field is required.' })}
               />
             )}
@@ -114,7 +114,7 @@ const AddUserDrawer = props => {
                 {...field}
                 fullWidth
                 label='Username'
-                placeholder='johndoe'
+                placeholder='gilvesg'
                 {...(errors.username && { error: true, helperText: 'This field is required.' })}
               />
             )}
@@ -129,7 +129,7 @@ const AddUserDrawer = props => {
                 fullWidth
                 type='email'
                 label='Email'
-                placeholder='johndoe@gmail.com'
+                placeholder='gilvesg@gmail.com'
                 {...(errors.email && { error: true, helperText: 'This field is required.' })}
               />
             )}

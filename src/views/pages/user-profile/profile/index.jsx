@@ -10,10 +10,10 @@ import ProjectsTable from './ProjectsTables'
 const ProfileTab = ({ data }) => {
   return (
     <Grid container spacing={6}>
-      <Grid size={{ xs: 12, md: 5, lg: 4 }}>
+      <Grid size={{ xs: 12, md: 12, lg: 12}}>
         <AboutOverview data={data} />
       </Grid>
-      <Grid size={{ xs: 12, md: 7, lg: 8 }}>
+      {/* <Grid size={{ xs: 12, md: 7, lg: 8 }}>
         <Grid container spacing={6}>
           <Grid size={{ xs: 12 }}>
             <ActivityTimeline />
@@ -23,7 +23,7 @@ const ProfileTab = ({ data }) => {
             <ProjectsTable projectTable={data?.projectTable} />
           </Grid>
         </Grid>
-      </Grid>
+      </Grid> */}
     </Grid>
   )
 }

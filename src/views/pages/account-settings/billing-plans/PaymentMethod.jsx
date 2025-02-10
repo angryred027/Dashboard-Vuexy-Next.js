@@ -110,7 +110,7 @@ const PaymentMethod = () => {
                       name='name'
                       label='Name'
                       autoComplete='off'
-                      placeholder='John Doe'
+                      placeholder='Gilves Gonzalez'
                       value={cardData.name}
                       onChange={e => setCardData({ ...cardData, name: e.target.value })}
                     />

@@ -33,7 +33,7 @@ const StepAccountDetails = ({ handleNext }) => {
       </div>
       <Grid container spacing={6}>
         <Grid size={{ xs: 12, sm: 6 }}>
-          <CustomTextField fullWidth label='Username' placeholder='johnDoe' />
+          <CustomTextField fullWidth label='Username' placeholder='gilvesg' />
         </Grid>
         <Grid size={{ xs: 12, sm: 6 }}>
           <CustomTextField fullWidth type='email' label='Email' placeholder='john.deo@gmail.com' />
@@ -89,7 +89,7 @@ const StepAccountDetails = ({ handleNext }) => {
           />
         </Grid>
         <Grid size={{ xs: 12 }}>
-          <CustomTextField fullWidth label='Profile Link' placeholder='johndoe/profile' />
+          <CustomTextField fullWidth label='Profile Link' placeholder='gilvesg/profile' />
         </Grid>
         <Grid size={{ xs: 12 }} className='flex justify-between'>
           <Button

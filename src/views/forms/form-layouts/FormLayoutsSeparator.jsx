@@ -77,7 +77,7 @@ const FormLayoutsSeparator = () => {
               <CustomTextField
                 fullWidth
                 label='UserName'
-                placeholder='johnDoe '
+                placeholder='gilvesg '
                 value={formData.username}
                 onChange={e => setFormData({ ...formData, username: e.target.value })}
               />
@@ -88,7 +88,7 @@ const FormLayoutsSeparator = () => {
                 type='email'
                 label='Email'
                 value={formData.email}
-                placeholder='johndoe@gmail.com'
+                placeholder='gilvesg@gmail.com'
                 onChange={e => setFormData({ ...formData, email: e.target.value })}
               />
             </Grid>

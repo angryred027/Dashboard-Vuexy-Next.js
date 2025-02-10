@@ -103,7 +103,7 @@ const ActivityTimeline = () => {
               <AvatarGroup total={6} className='pull-up'>
                 <Avatar alt='Travis Howard' src='/images/avatars/1.png' />
                 <Avatar alt='Agnes Walker' src='/images/avatars/4.png' />
-                <Avatar alt='John Doe' src='/images/avatars/2.png' />
+                <Avatar alt='Gilves Gonzalez' src='/images/avatars/2.png' />
               </AvatarGroup>
             </TimelineContent>
           </TimelineItem>

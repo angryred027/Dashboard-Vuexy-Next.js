@@ -10,6 +10,11 @@ import { getLocalizedUrl } from '@/utils/i18n'
 
 const noResultData = [
   {
+    label: 'Advanced Search',
+    href: '/search',
+    icon: 'tabler-search'
+  },
+  {
     label: 'Analytics',
     href: '/dashboards/analytics',
     icon: 'tabler-chart-pie-2'

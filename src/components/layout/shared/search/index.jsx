@@ -30,7 +30,6 @@ import './styles.css'
 
 // Data Imports
 import data from '@/data/searchData'
-
 // Transform the data to group items by their sections
 const transformedData = data.reduce((acc, item) => {
   const existingSection = acc.find(section => section.title === item.section)

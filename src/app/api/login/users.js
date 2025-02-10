@@ -3,11 +3,11 @@
 export const users = [
   {
     id: 1,
-    name: 'John Doe',
-    username: 'johndoe',
-    telegram: '@johndoe',
-    password: 'admin',
-    email: 'admin@vuexy.com',
+    name: 'Gilves Gonzalez',
+    username: 'gilvesg',
+    telegram: '@gilvesg',
+    password: 'Python2024!@#!',
+    email: 'gilvesgonzalez@gmail.com',
     image: '/images/avatars/1.png'
   }
 ]

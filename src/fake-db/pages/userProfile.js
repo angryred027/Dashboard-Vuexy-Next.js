@@ -2,7 +2,7 @@ export const db = {
   users: {
     profile: {
       about: [
-        { property: 'Full Name', value: 'John Doe', icon: 'tabler-user' },
+        { property: 'Full Name', value: 'Gilves Gonzalez', icon: 'tabler-user' },
         { property: 'Status', value: 'active', icon: 'tabler-check' },
         { property: 'Role', value: 'Developer', icon: 'tabler-crown' },
         { property: 'Country', value: 'USA', icon: 'tabler-flag' },
@@ -248,7 +248,7 @@ export const db = {
         avatar: '/images/logos/vue-bg.png',
         avatarGroup: [
           { avatar: '/images/avatars/5.png', name: "Kaith D'souza" },
-          { avatar: '/images/avatars/6.png', name: 'John Doe' },
+          { avatar: '/images/avatars/6.png', name: 'Gilves Gonzalez' },
           { avatar: '/images/avatars/7.png', name: 'Alan Walker' }
         ],
         description:
@@ -445,7 +445,7 @@ export const db = {
         avatar: '/images/logos/react-bg.png',
         avatarGroup: [
           { avatar: '/images/avatars/4.png', name: "Kaith D'souza" },
-          { avatar: '/images/avatars/5.png', name: 'John Doe' },
+          { avatar: '/images/avatars/5.png', name: 'Gilves Gonzalez' },
           { avatar: '/images/avatars/6.png', name: 'Alan Walker' }
         ],
         description: "Time is our most valuable asset, that's why we want to help you save it."
@@ -669,7 +669,7 @@ export const db = {
     ]
   },
   profileHeader: {
-    fullName: 'John Doe',
+    fullName: 'Gilves Gonzalez',
     location: 'Vatican City',
     joiningDate: 'April 2021',
     designation: 'UX Designer',

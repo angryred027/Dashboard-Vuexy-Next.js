@@ -64,7 +64,7 @@ const StepConfirmation = () => {
                 Shipping
               </Typography>
             </div>
-            <Typography>John Doe</Typography>
+            <Typography>Gilves Gonzalez</Typography>
             <Typography>4135 Parkway Street,</Typography>
             <Typography>Los Angeles, CA 90017,</Typography>
             <Typography className='mbe-4'>USA</Typography>
@@ -77,7 +77,7 @@ const StepConfirmation = () => {
                 Billing Address
               </Typography>
             </div>
-            <Typography>John Doe</Typography>
+            <Typography>Gilves Gonzalez</Typography>
             <Typography>4135 Parkway Street,</Typography>
             <Typography>Los Angeles, CA 90017,</Typography>
             <Typography className='mbe-4'>USA</Typography>

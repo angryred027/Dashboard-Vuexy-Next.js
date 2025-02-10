@@ -130,7 +130,7 @@ const StepBillingDetails = ({ handlePrev }) => {
           <CustomTextField fullWidth label='Card Number' placeholder='1356 3215 6548 7898' />
         </Grid>
         <Grid size={{ xs: 12, sm: 6 }}>
-          <CustomTextField fullWidth label='Name On Card' placeholder='John Doe' />
+          <CustomTextField fullWidth label='Name On Card' placeholder='Gilves Gonzalez' />
         </Grid>
         <Grid size={{ xs: 12, sm: 3 }}>
           <CustomTextField fullWidth label='Expiry Date' placeholder='MM/YY' />

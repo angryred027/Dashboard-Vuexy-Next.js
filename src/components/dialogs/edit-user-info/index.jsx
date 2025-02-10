@@ -90,7 +90,7 @@ const EditUserInfo = ({ open, setOpen, data }) => {
               <CustomTextField
                 fullWidth
                 label='User Name'
-                placeholder='JohnDoe'
+                placeholder='gilvesg'
                 value={userData?.userName}
                 onChange={e => setUserData({ ...userData, userName: e.target.value })}
               />
@@ -99,7 +99,7 @@ const EditUserInfo = ({ open, setOpen, data }) => {
               <CustomTextField
                 fullWidth
                 label='Billing Email'
-                placeholder='johnDoe@email.com'
+                placeholder='gilvesg@email.com'
                 value={userData?.billingEmail}
                 onChange={e => setUserData({ ...userData, billingEmail: e.target.value })}
               />

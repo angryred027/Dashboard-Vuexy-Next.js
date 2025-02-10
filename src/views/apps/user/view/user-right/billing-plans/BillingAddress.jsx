@@ -14,7 +14,7 @@ import OpenDialogOnElementClick from '@components/dialogs/OpenDialogOnElementCli
 const data = {
   firstName: 'John',
   lastName: 'Doe',
-  email: 'johndoe@gmail.com',
+  email: 'gilvesg@gmail.com',
   country: 'US',
   address1: '100 Water Plant Avenue,',
   address2: 'Building 1303 Wake Island',

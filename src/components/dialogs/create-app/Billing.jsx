@@ -42,7 +42,7 @@ const Billing = ({ activeStep, isLastStep, handleNext, handlePrev }) => {
             name='name'
             label='Name on Card'
             autoComplete='off'
-            placeholder='John Doe'
+            placeholder='Gilves Gonzalez'
             value={cardData.name}
             onChange={e => setCardData({ ...cardData, name: e.target.value })}
           />

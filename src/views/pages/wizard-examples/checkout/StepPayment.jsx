@@ -95,7 +95,7 @@ const StepPayment = ({ handleNext }) => {
                       <CustomTextField fullWidth type='number' label='Card Number' placeholder='0000 0000 0000 0000' />
                     </Grid>
                     <Grid size={{ xs: 12, sm: 6 }}>
-                      <CustomTextField fullWidth label='Name' placeholder='John Doe' />
+                      <CustomTextField fullWidth label='Name' placeholder='Gilves Gonzalez' />
                     </Grid>
                     <Grid size={{ xs: 6, sm: 3 }}>
                       <CustomTextField fullWidth label='Expiry Date' placeholder='MM/YY' />
@@ -188,7 +188,7 @@ const StepPayment = ({ handleNext }) => {
             </div>
             <div>
               <Typography color='text.primary' className='font-medium'>
-                John Doe (Default),
+                Gilves Gonzalez (Default),
               </Typography>
               <Typography>4135 Parkway Street,</Typography>
               <Typography>Los Angeles, CA, 90017.</Typography>

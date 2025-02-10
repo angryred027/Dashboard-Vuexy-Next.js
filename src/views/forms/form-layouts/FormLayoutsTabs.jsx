@@ -176,7 +176,7 @@ const FormLayoutsWithTabs = () => {
                   <CustomTextField
                     fullWidth
                     label='Username'
-                    placeholder='johnDoe'
+                    placeholder='gilvesg'
                     value={formData.username}
                     onChange={e => setFormData({ ...formData, username: e.target.value })}
                   />
@@ -186,7 +186,7 @@ const FormLayoutsWithTabs = () => {
                     fullWidth
                     type='email'
                     label='Email'
-                    placeholder='johndoe@gmail.com'
+                    placeholder='gilvesg@gmail.com'
                     value={formData.email}
                     onChange={e => setFormData({ ...formData, email: e.target.value })}
                   />
@@ -253,7 +253,7 @@ const FormLayoutsWithTabs = () => {
                   <CustomTextField
                     fullWidth
                     label='Twitter'
-                    placeholder='https://twitter.com/johndoe'
+                    placeholder='https://twitter.com/gilvesg'
                     value={formData.twitter}
                     onChange={e => setFormData({ ...formData, twitter: e.target.value })}
                   />
@@ -262,7 +262,7 @@ const FormLayoutsWithTabs = () => {
                   <CustomTextField
                     fullWidth
                     label='Facebook'
-                    placeholder='https://facebook.com/johndoe'
+                    placeholder='https://facebook.com/gilvesg'
                     value={formData.facebook}
                     onChange={e => setFormData({ ...formData, facebook: e.target.value })}
                   />
@@ -271,7 +271,7 @@ const FormLayoutsWithTabs = () => {
                   <CustomTextField
                     fullWidth
                     label='Google+'
-                    placeholder='https://plus.google.com/johndoe'
+                    placeholder='https://plus.google.com/gilvesg'
                     value={formData.google}
                     onChange={e => setFormData({ ...formData, google: e.target.value })}
                   />
@@ -280,7 +280,7 @@ const FormLayoutsWithTabs = () => {
                   <CustomTextField
                     fullWidth
                     label='LinkedIn'
-                    placeholder='https://linkedin.com/johndoe'
+                    placeholder='https://linkedin.com/gilvesg'
                     value={formData.linkedin}
                     onChange={e => setFormData({ ...formData, linkedin: e.target.value })}
                   />
@@ -289,7 +289,7 @@ const FormLayoutsWithTabs = () => {
                   <CustomTextField
                     fullWidth
                     label='Instagram'
-                    placeholder='https://instagram.com/johndoe'
+                    placeholder='https://instagram.com/gilvesg'
                     value={formData.instagram}
                     onChange={e => setFormData({ ...formData, instagram: e.target.value })}
                   />
@@ -298,7 +298,7 @@ const FormLayoutsWithTabs = () => {
                   <CustomTextField
                     fullWidth
                     label='Quora'
-                    placeholder='https://quora.com/johndoe'
+                    placeholder='https://quora.com/gilvesg'
                     value={formData.quora}
                     onChange={e => setFormData({ ...formData, quora: e.target.value })}
                   />

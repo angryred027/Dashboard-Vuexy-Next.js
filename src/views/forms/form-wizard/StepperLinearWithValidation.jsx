@@ -197,7 +197,7 @@ const StepperLinearWithValidation = () => {
                       {...field}
                       fullWidth
                       label='Username'
-                      placeholder='johnDoe'
+                      placeholder='gilvesg'
                       {...(accountErrors.username && { error: true, helperText: accountErrors.username.message })}
                     />
                   )}
@@ -214,7 +214,7 @@ const StepperLinearWithValidation = () => {
                       fullWidth
                       type='email'
                       label='Email'
-                      placeholder='johndoe@gmail.com'
+                      placeholder='gilvesg@gmail.com'
                       {...(accountErrors.email && { error: true, helperText: accountErrors.email.message })}
                     />
                   )}
@@ -449,7 +449,7 @@ const StepperLinearWithValidation = () => {
                       onChange={onChange}
                       fullWidth
                       label='Twitter'
-                      placeholder='https://twitter.com/johndoe'
+                      placeholder='https://twitter.com/gilvesg'
                       {...(socialErrors.twitter && { error: true, helperText: socialErrors.twitter.message })}
                     />
                   )}
@@ -466,7 +466,7 @@ const StepperLinearWithValidation = () => {
                       onChange={onChange}
                       fullWidth
                       label='Facebook'
-                      placeholder='https://facebook.com/johndoe'
+                      placeholder='https://facebook.com/gilvesg'
                       {...(socialErrors.facebook && { error: true, helperText: socialErrors.facebook.message })}
                     />
                   )}
@@ -482,7 +482,7 @@ const StepperLinearWithValidation = () => {
                       {...field}
                       fullWidth
                       label='Google'
-                      placeholder='https://google.com/johndoe'
+                      placeholder='https://google.com/gilvesg'
                       {...(socialErrors.google && { error: true, helperText: socialErrors.google.message })}
                     />
                   )}
@@ -498,7 +498,7 @@ const StepperLinearWithValidation = () => {
                       {...field}
                       fullWidth
                       label='LinkedIn'
-                      placeholder='https://linkedin.com/johndoe'
+                      placeholder='https://linkedin.com/gilvesg'
                       {...(socialErrors.linkedIn && { error: true, helperText: socialErrors.linkedIn.message })}
                     />
                   )}

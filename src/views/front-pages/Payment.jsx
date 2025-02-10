@@ -200,7 +200,7 @@ const Payment = ({ data }) => {
                       />
                     </Grid>
                     <Grid size={{ xs: 12, sm: 6 }}>
-                      <CustomTextField fullWidth id='card-holder-name' placeholder='John Doe' label='Card Holder' />
+                      <CustomTextField fullWidth id='card-holder-name' placeholder='Gilves Gonzalez' label='Card Holder' />
                     </Grid>
                     <Grid size={{ xs: 12, sm: 3 }}>
                       <CustomTextField

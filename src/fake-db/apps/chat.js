@@ -5,7 +5,7 @@ export const db = {
   profileUser: {
     id: 1,
     avatar: '/images/avatars/1.png',
-    fullName: 'John Doe',
+    fullName: 'Gilves Gonzalez',
     role: 'Admin',
     about:
       'Dessert chocolate cake lemon drops jujubes. Biscuit cupcake ice cream bear claw brownie brownie marshmallow.',

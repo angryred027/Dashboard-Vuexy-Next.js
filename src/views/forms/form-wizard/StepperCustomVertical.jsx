@@ -158,7 +158,7 @@ const StepperCustomVertical = () => {
                 fullWidth
                 label='Username'
                 value={username}
-                placeholder='JohnDoe'
+                placeholder='gilvesg'
                 onChange={e => setUsername(e.target.value)}
               />
             </Grid>
@@ -168,7 +168,7 @@ const StepperCustomVertical = () => {
                 type='email'
                 label='Email'
                 value={email}
-                placeholder='johndoe@gmail.com'
+                placeholder='gilvesg@gmail.com'
                 onChange={e => setEmail(e.target.value)}
               />
             </Grid>
@@ -299,7 +299,7 @@ const StepperCustomVertical = () => {
                 label='Twitter'
                 value={twitter}
                 onChange={e => setTwitter(e.target.value)}
-                placeholder='https://twitter.com/johndoe'
+                placeholder='https://twitter.com/gilvesg'
               />
             </Grid>
             <Grid size={{ xs: 12, sm: 6 }}>
@@ -308,7 +308,7 @@ const StepperCustomVertical = () => {
                 label='Facebook'
                 value={facebook}
                 onChange={e => setFacebook(e.target.value)}
-                placeholder='https://facebook.com/johndoe'
+                placeholder='https://facebook.com/gilvesg'
               />
             </Grid>
             <Grid size={{ xs: 12, sm: 6 }}>
@@ -317,7 +317,7 @@ const StepperCustomVertical = () => {
                 label='Google+'
                 value={google}
                 onChange={e => setGoogle(e.target.value)}
-                placeholder='https://plus.google.com/johndoe'
+                placeholder='https://plus.google.com/gilvesg'
               />
             </Grid>
             <Grid size={{ xs: 12, sm: 6 }}>
@@ -326,7 +326,7 @@ const StepperCustomVertical = () => {
                 label='LinkedIn'
                 value={linkedIn}
                 onChange={e => setLinkedIn(e.target.value)}
-                placeholder='https://linkedin.com/johndoe'
+                placeholder='https://linkedin.com/gilvesg'
               />
             </Grid>
           </Fragment>

@@ -111,7 +111,7 @@ const FormLayoutsCollapsible = () => {
               <CustomTextField
                 fullWidth
                 label='Full Name'
-                placeholder='John Doe'
+                placeholder='Gilves Gonzalez'
                 value={cardData.fullName}
                 onChange={e => setCardData({ ...cardData, fullName: e.target.value })}
               />
@@ -261,7 +261,7 @@ const FormLayoutsCollapsible = () => {
                           name='name'
                           label='Name'
                           autoComplete='off'
-                          placeholder='John Doe'
+                          placeholder='Gilves Gonzalez'
                           value={cardData.name}
                           onChange={e => setCardData({ ...cardData, name: e.target.value })}
                         />

@@ -215,16 +215,19 @@ const Register = ({ mode }) => {
             </div>
             <Divider className='gap-2'>or</Divider>
             <div className='flex justify-center items-center gap-1.5'>
-              <IconButton className='text-facebook' size='small'>
+              <IconButton className='text-facebook' size='small'
+              >
                 <i className='tabler-brand-facebook-filled' />
               </IconButton>
               <IconButton className='text-twitter' size='small'>
                 <i className='tabler-brand-twitter-filled' />
               </IconButton>
-              <IconButton className='text-textPrimary' size='small'>
+              <IconButton className='text-textPrimary' size='small'
+              onClick={() => {signIn('github')}}>
                 <i className='tabler-brand-github-filled' />
               </IconButton>
-              <IconButton className='text-error' size='small'>
+              <IconButton className='text-error' size='small'
+              onClick={() => {signIn('google')}}>
                 <i className='tabler-brand-google-filled' />
               </IconButton>
             </div>

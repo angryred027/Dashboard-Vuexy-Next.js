@@ -21,7 +21,7 @@ const FormLayoutsWithIcon = () => {
               <CustomTextField
                 fullWidth
                 label='Name'
-                placeholder='John Doe'
+                placeholder='Gilves Gonzalez'
                 slotProps={{
                   input: {
                     startAdornment: (
@@ -38,7 +38,7 @@ const FormLayoutsWithIcon = () => {
                 fullWidth
                 type='email'
                 label='Email'
-                placeholder='johndoe@gmail.com'
+                placeholder='gilvesg@gmail.com'
                 slotProps={{
                   input: {
                     startAdornment: (

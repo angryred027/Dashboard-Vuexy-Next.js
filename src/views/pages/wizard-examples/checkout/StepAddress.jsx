@@ -38,7 +38,7 @@ const VerticalContent = styled(Typography, {
 // Vars
 const data = [
   {
-    title: 'John Doe (Default)',
+    title: 'Gilves Gonzalez (Default)',
     meta: <Chip variant='tonal' size='small' label='Home' color='primary' />,
     value: 'home',
     isSelected: true,

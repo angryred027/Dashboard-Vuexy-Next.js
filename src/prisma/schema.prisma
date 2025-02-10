@@ -9,19 +9,47 @@ generator client {
 }
 
 model User {
-  id        Int      @id @default(autoincrement())
-  email     String   @unique
-  fullName  String
-  userName  String
-  telegram  String?
-  password  String
-  image     String?
-  provider  String?
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  id            String   @id @default(uuid())
+  name          String?
+  userName      String?
+  email         String   @unique
+  password      String?  // Required for credentials login, nullable for OAuth
+  image         String?
+  emailVerified DateTime?
+  fullName      String?
+  telegram      String?
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  accounts Account[]  // Relation to OAuth accounts
+  sessions Session[]  // Relation to sessions
 }
 
-enum Role {
-  USER
-  ADMIN
+model Account {
+  id                String  @id @default(uuid())
+  userId            String
+  type              String
+  provider          String  // e.g., "google", "github", or "credentials"
+  providerAccountId String  @unique  // Unique account ID from provider
+  refresh_token     String?
+  access_token      String?
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String?
+  session_state     String?
+
+  @@unique([provider, providerAccountId])
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
+
+model Session {
+  id           String   @id @default(uuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+

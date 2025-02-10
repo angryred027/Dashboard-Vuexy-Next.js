@@ -141,7 +141,7 @@ const StepperCustomHorizontal = () => {
               <CustomTextField
                 fullWidth
                 label='Username'
-                placeholder='johnDoe'
+                placeholder='gilvesg'
                 value={formData.username}
                 onChange={e => setFormData({ ...formData, username: e.target.value })}
               />
@@ -151,7 +151,7 @@ const StepperCustomHorizontal = () => {
                 fullWidth
                 type='email'
                 label='Email'
-                placeholder='johndoe@gmail.com'
+                placeholder='gilvesg@gmail.com'
                 value={formData.email}
                 onChange={e => setFormData({ ...formData, email: e.target.value })}
               />
@@ -279,7 +279,7 @@ const StepperCustomHorizontal = () => {
               <CustomTextField
                 fullWidth
                 label='Facebook'
-                placeholder='https://www.facebook.com/johndoe'
+                placeholder='https://www.facebook.com/gilvesg'
                 value={formData.facebook}
                 onChange={e => setFormData({ ...formData, facebook: e.target.value })}
               />
@@ -288,7 +288,7 @@ const StepperCustomHorizontal = () => {
               <CustomTextField
                 fullWidth
                 label='Twitter'
-                placeholder='https://www.twitter.com/johndoe'
+                placeholder='https://www.twitter.com/gilvesg'
                 value={formData.twitter}
                 onChange={e => setFormData({ ...formData, twitter: e.target.value })}
               />
@@ -297,7 +297,7 @@ const StepperCustomHorizontal = () => {
               <CustomTextField
                 fullWidth
                 label='Instagram'
-                placeholder='https://www.instagram.com/johndoe'
+                placeholder='https://www.instagram.com/gilvesg'
                 value={formData.instagram}
                 onChange={e => setFormData({ ...formData, instagram: e.target.value })}
               />
@@ -306,7 +306,7 @@ const StepperCustomHorizontal = () => {
               <CustomTextField
                 fullWidth
                 label='Github'
-                placeholder='https://www.github.com/johndoe'
+                placeholder='https://www.github.com/gilvesg'
                 value={formData.github}
                 onChange={e => setFormData({ ...formData, github: e.target.value })}
               />

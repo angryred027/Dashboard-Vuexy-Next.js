@@ -10,7 +10,7 @@ export const db = {
       to: [
         {
           name: 'me',
-          email: 'johndoe@mail.com'
+          email: 'gilvesg@mail.com'
         }
       ],
       subject: 'How to Succeed with Your Shopify Store',
@@ -49,7 +49,7 @@ export const db = {
       to: [
         {
           name: 'me',
-          email: 'johndoe@mail.com'
+          email: 'gilvesg@mail.com'
         }
       ],
       subject: 'Please find attached the latest Company Report',
@@ -82,7 +82,7 @@ export const db = {
       to: [
         {
           name: 'me',
-          email: 'johndoe@mail.com'
+          email: 'gilvesg@mail.com'
         }
       ],
       subject: 'Your order has been delivered',
@@ -108,7 +108,7 @@ export const db = {
       to: [
         {
           name: 'me',
-          email: 'johndoe@mail.com'
+          email: 'gilvesg@mail.com'
         }
       ],
       subject: 'Update Can Change Your Personal Life',
@@ -141,7 +141,7 @@ export const db = {
       to: [
         {
           name: 'me',
-          email: 'johndoe@dot.gov'
+          email: 'gilvesg@dot.gov'
         }
       ],
       subject: 'Your opinion matters to us. Tell us how you feel!',
@@ -167,7 +167,7 @@ export const db = {
       to: [
         {
           name: 'me',
-          email: 'johndoe@google.co.uk'
+          email: 'gilvesg@google.co.uk'
         }
       ],
       subject: 'World Tourism Day Event Invitation',
@@ -193,14 +193,14 @@ export const db = {
       to: [
         {
           name: 'me',
-          email: 'johndoe@altervista.org'
+          email: 'gilvesg@altervista.org'
         }
       ],
       subject: 'Delivery Note',
       cc: [],
       bcc: [],
       message:
-        '<p>Hello John, </p><p>Shipping Details:</p><p>Order Number: 82080</p><p>Delivered-to: <strong>John Doe</strong></p><p>Email: <strong>johndoe@altervista.org</strong></p><p>Address: <strong>99 El ABCD San Francisco, CA. United States </strong></p><p>Thank You for being with Us!</p><p>Regards</p><p>Shawn Wilby</p>',
+        '<p>Hello John, </p><p>Shipping Details:</p><p>Order Number: 82080</p><p>Delivered-to: <strong>Gilves Gonzalez</strong></p><p>Email: <strong>gilvesg@altervista.org</strong></p><p>Address: <strong>99 El ABCD San Francisco, CA. United States </strong></p><p>Thank You for being with Us!</p><p>Regards</p><p>Shawn Wilby</p>',
       attachments: [],
       isStarred: false,
       labels: ['company'],
@@ -219,7 +219,7 @@ export const db = {
       to: [
         {
           name: 'me',
-          email: 'johndoe@sciencedaily.com'
+          email: 'gilvesg@sciencedaily.com'
         }
       ],
       subject: 'Refer friends. Get rewards.',
@@ -245,7 +245,7 @@ export const db = {
       to: [
         {
           name: 'me',
-          email: 'johndoe@weibo.com'
+          email: 'gilvesg@weibo.com'
         }
       ],
       subject: 'Good Hair Day!',
@@ -271,7 +271,7 @@ export const db = {
       to: [
         {
           name: 'me',
-          email: 'johndoe@skype.com'
+          email: 'gilvesg@skype.com'
         }
       ],
       subject: 'Travel to Europe',
@@ -297,7 +297,7 @@ export const db = {
       to: [
         {
           name: 'me',
-          email: 'johndoe@fda.gov'
+          email: 'gilvesg@fda.gov'
         }
       ],
       subject: 'Cyber Monday Sale!',
@@ -330,7 +330,7 @@ export const db = {
       to: [
         {
           name: 'me',
-          email: 'johndoe@odnoklassniki.ru'
+          email: 'gilvesg@odnoklassniki.ru'
         }
       ],
       subject: "BOOK LOVER'S DAY",
@@ -356,7 +356,7 @@ export const db = {
       to: [
         {
           name: 'me',
-          email: 'johndoe@nifty.com'
+          email: 'gilvesg@nifty.com'
         }
       ],
       subject: 'Handmade Goods',
@@ -382,7 +382,7 @@ export const db = {
       to: [
         {
           name: 'me',
-          email: 'johndoe@51.la'
+          email: 'gilvesg@51.la'
         }
       ],
       subject: 'App Update',
@@ -408,7 +408,7 @@ export const db = {
       to: [
         {
           name: 'me',
-          email: 'johndoe@oracle.com'
+          email: 'gilvesg@oracle.com'
         }
       ],
       subject: 'Password Reset',
@@ -434,7 +434,7 @@ export const db = {
       to: [
         {
           name: 'me',
-          email: 'johndoe@vistaprint.com'
+          email: 'gilvesg@vistaprint.com'
         }
       ],
       subject: 'Course Update',
@@ -460,7 +460,7 @@ export const db = {
       to: [
         {
           name: 'me',
-          email: 'johndoe@si.edu'
+          email: 'gilvesg@si.edu'
         }
       ],
       subject: 'Earth Hour',
@@ -486,7 +486,7 @@ export const db = {
       to: [
         {
           name: 'me',
-          email: 'johndoe@about.com'
+          email: 'gilvesg@about.com'
         }
       ],
       subject: "Happy Teacher's Day!",
@@ -512,7 +512,7 @@ export const db = {
       to: [
         {
           name: 'me',
-          email: 'johndoe@tinypic.com'
+          email: 'gilvesg@tinypic.com'
         }
       ],
       subject: 'Newly Improved Product',
@@ -538,7 +538,7 @@ export const db = {
       to: [
         {
           name: 'me',
-          email: 'johndoe@google.es'
+          email: 'gilvesg@google.es'
         }
       ],
       subject: 'Meet your new banker.',
@@ -561,8 +561,8 @@ export const db = {
         {
           id: 101,
           from: {
-            email: 'johndoe@mail.com',
-            name: 'John Doe',
+            email: 'gilvesg@mail.com',
+            name: 'Gilves Gonzalez',
             avatar: '/images/avatars/6.png'
           },
           to: [
@@ -575,7 +575,7 @@ export const db = {
           cc: [],
           bcc: [],
           message:
-            '<p>Hello Hettie,</p><p>Marshmallow cookie jelly liquorice. Powder macaroon cake pastry biscuit. Cotton candy cotton candy jelly chocolate bar. Sesame snaps candy gummi bears cake cookie jujubes. Sweet I love sweet roll. Sesame snaps I love marzipan. Jelly powder tootsie roll. Marshmallow pudding cookie fruitcake liquorice powder. I love I love cookie chupa chups fruitcake ice cream I love biscuit I love. Tiramisu apple pie candy canes cookie gummies. Donut toffee bear claw topping jelly-o. Cupcake icing muffin. Cookie brownie wafer pie sweet. Icing sesame snaps halvah toffee marshmallow lemon drops jelly.</p><p>Tiramisu candy canes powder. Powder chocolate bar halvah liquorice cake I love danish. Cake wafer apple pie. Bear claw fruitcake I love marzipan dessert marzipan lollipop. Halvah gingerbread jelly chupa chups tiramisu I love wafer gummi bears. Candy powder caramels candy gummies. Tart tart cupcake brownie. Bear claw gummies toffee. Tiramisu donut cake chocolate bar. Halvah chocolate bar donut jelly-o. Icing candy brownie chocolate. Pastry bear claw halvah gummies chocolate bar chocolate. Apple pie danish wafer I love biscuit.</p><p>Regrads,</p><p>John Doe</p>',
+            '<p>Hello Hettie,</p><p>Marshmallow cookie jelly liquorice. Powder macaroon cake pastry biscuit. Cotton candy cotton candy jelly chocolate bar. Sesame snaps candy gummi bears cake cookie jujubes. Sweet I love sweet roll. Sesame snaps I love marzipan. Jelly powder tootsie roll. Marshmallow pudding cookie fruitcake liquorice powder. I love I love cookie chupa chups fruitcake ice cream I love biscuit I love. Tiramisu apple pie candy canes cookie gummies. Donut toffee bear claw topping jelly-o. Cupcake icing muffin. Cookie brownie wafer pie sweet. Icing sesame snaps halvah toffee marshmallow lemon drops jelly.</p><p>Tiramisu candy canes powder. Powder chocolate bar halvah liquorice cake I love danish. Cake wafer apple pie. Bear claw fruitcake I love marzipan dessert marzipan lollipop. Halvah gingerbread jelly chupa chups tiramisu I love wafer gummi bears. Candy powder caramels candy gummies. Tart tart cupcake brownie. Bear claw gummies toffee. Tiramisu donut cake chocolate bar. Halvah chocolate bar donut jelly-o. Icing candy brownie chocolate. Pastry bear claw halvah gummies chocolate bar chocolate. Apple pie danish wafer I love biscuit.</p><p>Regrads,</p><p>Gilves Gonzalez</p>',
           attachments: [],
           isStarred: false,
           labels: [],
@@ -594,7 +594,7 @@ export const db = {
           to: [
             {
               name: 'me',
-              email: 'johndoe@mail.com'
+              email: 'gilvesg@mail.com'
             }
           ],
           subject: 'I’m a living furnace.',
@@ -624,7 +624,7 @@ export const db = {
       to: [
         {
           name: 'me',
-          email: 'johndoe@ow.ly'
+          email: 'gilvesg@ow.ly'
         }
       ],
       subject: 'Bank transfer initiated.',
@@ -650,7 +650,7 @@ export const db = {
       to: [
         {
           name: 'me',
-          email: 'johndoe@furl.net'
+          email: 'gilvesg@furl.net'
         }
       ],
       subject: 'Accounting software',
@@ -676,7 +676,7 @@ export const db = {
       to: [
         {
           name: 'me',
-          email: 'johndoe@cnet.com'
+          email: 'gilvesg@cnet.com'
         }
       ],
       subject: 'Labor Day Sale',
@@ -702,7 +702,7 @@ export const db = {
       to: [
         {
           name: 'me',
-          email: 'johndoe@github.io'
+          email: 'gilvesg@github.io'
         }
       ],
       subject: 'Order Feedback',
@@ -725,8 +725,8 @@ export const db = {
         {
           id: 103,
           from: {
-            email: 'johndoe@mail.com',
-            name: 'John Doe',
+            email: 'gilvesg@mail.com',
+            name: 'Gilves Gonzalez',
             avatar: '/images/avatars/1.png'
           },
           to: [
@@ -739,7 +739,7 @@ export const db = {
           cc: [],
           bcc: [],
           message:
-            '<p>Hello Hettie,</p><p>Marshmallow cookie jelly liquorice. Powder macaroon cake pastry biscuit. Cotton candy cotton candy jelly chocolate bar. Sesame snaps candy gummi bears cake cookie jujubes. Sweet I love sweet roll. Sesame snaps I love marzipan. Jelly powder tootsie roll. Marshmallow pudding cookie fruitcake liquorice powder. I love I love cookie chupa chups fruitcake ice cream I love biscuit I love. Tiramisu apple pie candy canes cookie gummies. Donut toffee bear claw topping jelly-o. Cupcake icing muffin. Cookie brownie wafer pie sweet. Icing sesame snaps halvah toffee marshmallow lemon drops jelly.</p><p>Tiramisu candy canes powder. Powder chocolate bar halvah liquorice cake I love danish. Cake wafer apple pie. Bear claw fruitcake I love marzipan dessert marzipan lollipop. Halvah gingerbread jelly chupa chups tiramisu I love wafer gummi bears. Candy powder caramels candy gummies. Tart tart cupcake brownie. Bear claw gummies toffee. Tiramisu donut cake chocolate bar. Halvah chocolate bar donut jelly-o. Icing candy brownie chocolate. Pastry bear claw halvah gummies chocolate bar chocolate. Apple pie danish wafer I love biscuit.</p><p>Regrads,</p><p>John Doe</p>',
+            '<p>Hello Hettie,</p><p>Marshmallow cookie jelly liquorice. Powder macaroon cake pastry biscuit. Cotton candy cotton candy jelly chocolate bar. Sesame snaps candy gummi bears cake cookie jujubes. Sweet I love sweet roll. Sesame snaps I love marzipan. Jelly powder tootsie roll. Marshmallow pudding cookie fruitcake liquorice powder. I love I love cookie chupa chups fruitcake ice cream I love biscuit I love. Tiramisu apple pie candy canes cookie gummies. Donut toffee bear claw topping jelly-o. Cupcake icing muffin. Cookie brownie wafer pie sweet. Icing sesame snaps halvah toffee marshmallow lemon drops jelly.</p><p>Tiramisu candy canes powder. Powder chocolate bar halvah liquorice cake I love danish. Cake wafer apple pie. Bear claw fruitcake I love marzipan dessert marzipan lollipop. Halvah gingerbread jelly chupa chups tiramisu I love wafer gummi bears. Candy powder caramels candy gummies. Tart tart cupcake brownie. Bear claw gummies toffee. Tiramisu donut cake chocolate bar. Halvah chocolate bar donut jelly-o. Icing candy brownie chocolate. Pastry bear claw halvah gummies chocolate bar chocolate. Apple pie danish wafer I love biscuit.</p><p>Regrads,</p><p>Gilves Gonzalez</p>',
           attachments: [],
           isStarred: false,
           labels: [],
@@ -758,7 +758,7 @@ export const db = {
           to: [
             {
               name: 'me',
-              email: 'johndoe@mail.com'
+              email: 'gilvesg@mail.com'
             }
           ],
           subject: 'Profound systemic alliance 🎉 🎊',
@@ -788,7 +788,7 @@ export const db = {
       to: [
         {
           name: 'me',
-          email: 'johndoe@github.io'
+          email: 'gilvesg@github.io'
         }
       ],
       subject: 'Finally Start Running',
@@ -814,7 +814,7 @@ export const db = {
       to: [
         {
           name: 'me',
-          email: 'johndoe@github.io'
+          email: 'gilvesg@github.io'
         }
       ],
       subject: 'Eco Food',
@@ -830,8 +830,8 @@ export const db = {
         {
           id: 105,
           from: {
-            email: 'johndoe@mail.com',
-            name: 'John Doe',
+            email: 'gilvesg@mail.com',
+            name: 'Gilves Gonzalez',
             avatar: '/images/avatars/6.png'
           },
           to: [
@@ -844,7 +844,7 @@ export const db = {
           cc: [],
           bcc: [],
           message:
-            '<p>Hello Hettie,</p><p>Marshmallow cookie jelly liquorice. Powder macaroon cake pastry biscuit. Cotton candy cotton candy jelly chocolate bar. Sesame snaps candy gummi bears cake cookie jujubes. Sweet I love sweet roll. Sesame snaps I love marzipan. Jelly powder tootsie roll. Marshmallow pudding cookie fruitcake liquorice powder. I love I love cookie chupa chups fruitcake ice cream I love biscuit I love. Tiramisu apple pie candy canes cookie gummies. Donut toffee bear claw topping jelly-o. Cupcake icing muffin. Cookie brownie wafer pie sweet. Icing sesame snaps halvah toffee marshmallow lemon drops jelly.</p><p>Tiramisu candy canes powder. Powder chocolate bar halvah liquorice cake I love danish. Cake wafer apple pie. Bear claw fruitcake I love marzipan dessert marzipan lollipop. Halvah gingerbread jelly chupa chups tiramisu I love wafer gummi bears. Candy powder caramels candy gummies. Tart tart cupcake brownie. Bear claw gummies toffee. Tiramisu donut cake chocolate bar. Halvah chocolate bar donut jelly-o. Icing candy brownie chocolate. Pastry bear claw halvah gummies chocolate bar chocolate. Apple pie danish wafer I love biscuit.</p><p>Regrads,</p><p>John Doe</p>',
+            '<p>Hello Hettie,</p><p>Marshmallow cookie jelly liquorice. Powder macaroon cake pastry biscuit. Cotton candy cotton candy jelly chocolate bar. Sesame snaps candy gummi bears cake cookie jujubes. Sweet I love sweet roll. Sesame snaps I love marzipan. Jelly powder tootsie roll. Marshmallow pudding cookie fruitcake liquorice powder. I love I love cookie chupa chups fruitcake ice cream I love biscuit I love. Tiramisu apple pie candy canes cookie gummies. Donut toffee bear claw topping jelly-o. Cupcake icing muffin. Cookie brownie wafer pie sweet. Icing sesame snaps halvah toffee marshmallow lemon drops jelly.</p><p>Tiramisu candy canes powder. Powder chocolate bar halvah liquorice cake I love danish. Cake wafer apple pie. Bear claw fruitcake I love marzipan dessert marzipan lollipop. Halvah gingerbread jelly chupa chups tiramisu I love wafer gummi bears. Candy powder caramels candy gummies. Tart tart cupcake brownie. Bear claw gummies toffee. Tiramisu donut cake chocolate bar. Halvah chocolate bar donut jelly-o. Icing candy brownie chocolate. Pastry bear claw halvah gummies chocolate bar chocolate. Apple pie danish wafer I love biscuit.</p><p>Regrads,</p><p>Gilves Gonzalez</p>',
           attachments: [],
           isStarred: false,
           labels: [],
@@ -863,7 +863,7 @@ export const db = {
           to: [
             {
               name: 'me',
-              email: 'johndoe@mail.com'
+              email: 'gilvesg@mail.com'
             }
           ],
           subject: 'I’m a living furnace.',
@@ -893,7 +893,7 @@ export const db = {
       to: [
         {
           name: 'me',
-          email: 'johndoe@github.io'
+          email: 'gilvesg@github.io'
         }
       ],
       subject: 'Personal Insurance',
@@ -919,7 +919,7 @@ export const db = {
       to: [
         {
           name: 'me',
-          email: 'johndoe@github.io'
+          email: 'gilvesg@github.io'
         }
       ],
       subject: 'Forgot your password?',
@@ -945,7 +945,7 @@ export const db = {
       to: [
         {
           name: 'me',
-          email: 'johndoe@github.io'
+          email: 'gilvesg@github.io'
         }
       ],
       subject: 'April Fools Day Movies',
@@ -961,8 +961,8 @@ export const db = {
         {
           id: 107,
           from: {
-            email: 'johndoe@mail.com',
-            name: 'John Doe',
+            email: 'gilvesg@mail.com',
+            name: 'Gilves Gonzalez',
             avatar: '/images/avatars/1.png'
           },
           to: [
@@ -975,7 +975,7 @@ export const db = {
           cc: [],
           bcc: [],
           message:
-            '<p>Hello Hettie,</p><p>Marshmallow cookie jelly liquorice. Powder macaroon cake pastry biscuit. Cotton candy cotton candy jelly chocolate bar. Sesame snaps candy gummi bears cake cookie jujubes. Sweet I love sweet roll. Sesame snaps I love marzipan. Jelly powder tootsie roll. Marshmallow pudding cookie fruitcake liquorice powder. I love I love cookie chupa chups fruitcake ice cream I love biscuit I love. Tiramisu apple pie candy canes cookie gummies. Donut toffee bear claw topping jelly-o. Cupcake icing muffin. Cookie brownie wafer pie sweet. Icing sesame snaps halvah toffee marshmallow lemon drops jelly.</p><p>Tiramisu candy canes powder. Powder chocolate bar halvah liquorice cake I love danish. Cake wafer apple pie. Bear claw fruitcake I love marzipan dessert marzipan lollipop. Halvah gingerbread jelly chupa chups tiramisu I love wafer gummi bears. Candy powder caramels candy gummies. Tart tart cupcake brownie. Bear claw gummies toffee. Tiramisu donut cake chocolate bar. Halvah chocolate bar donut jelly-o. Icing candy brownie chocolate. Pastry bear claw halvah gummies chocolate bar chocolate. Apple pie danish wafer I love biscuit.</p><p>Regrads,</p><p>John Doe</p>',
+            '<p>Hello Hettie,</p><p>Marshmallow cookie jelly liquorice. Powder macaroon cake pastry biscuit. Cotton candy cotton candy jelly chocolate bar. Sesame snaps candy gummi bears cake cookie jujubes. Sweet I love sweet roll. Sesame snaps I love marzipan. Jelly powder tootsie roll. Marshmallow pudding cookie fruitcake liquorice powder. I love I love cookie chupa chups fruitcake ice cream I love biscuit I love. Tiramisu apple pie candy canes cookie gummies. Donut toffee bear claw topping jelly-o. Cupcake icing muffin. Cookie brownie wafer pie sweet. Icing sesame snaps halvah toffee marshmallow lemon drops jelly.</p><p>Tiramisu candy canes powder. Powder chocolate bar halvah liquorice cake I love danish. Cake wafer apple pie. Bear claw fruitcake I love marzipan dessert marzipan lollipop. Halvah gingerbread jelly chupa chups tiramisu I love wafer gummi bears. Candy powder caramels candy gummies. Tart tart cupcake brownie. Bear claw gummies toffee. Tiramisu donut cake chocolate bar. Halvah chocolate bar donut jelly-o. Icing candy brownie chocolate. Pastry bear claw halvah gummies chocolate bar chocolate. Apple pie danish wafer I love biscuit.</p><p>Regrads,</p><p>Gilves Gonzalez</p>',
           attachments: [],
           isStarred: false,
           labels: [],
@@ -994,7 +994,7 @@ export const db = {
           to: [
             {
               name: 'me',
-              email: 'johndoe@mail.com'
+              email: 'gilvesg@mail.com'
             }
           ],
           subject: 'The truth is that you pay for your lifestyle in hours.',
@@ -1024,7 +1024,7 @@ export const db = {
       to: [
         {
           name: 'me',
-          email: 'johndoe@mail.com'
+          email: 'gilvesg@mail.com'
         }
       ],
       subject: 'Meeting with the client',
