@@ -103,7 +103,7 @@ const Login = ({ mode }) => {
     resolver: valibotResolver(schema),
     defaultValues: {
       email: 'gilvesgonzalez@gmail.com',
-      password: 'admin'
+      password: 'Python2024!@#!'
     }
   })
 
@@ -169,7 +169,7 @@ const Login = ({ mode }) => {
           <form
             noValidate
             autoComplete='off'
-            action={() => {}}
+            action={() => { }}
             onSubmit={handleSubmit(onSubmit)}
             className='flex flex-col gap-6'
           >
@@ -191,7 +191,7 @@ const Login = ({ mode }) => {
                   }}
                   {...((errors.email || (errorState !== null && errorState.errorType === 'email')) && {
                     error: true,
-                    helperText: errors?.email?.message ||  errorState?.message
+                    helperText: errors?.email?.message || errorState?.message
                   })}
                 />
               )}
@@ -271,7 +271,7 @@ const Login = ({ mode }) => {
               sx={{ '& .MuiButton-startIcon': { marginInlineEnd: 3 } }}
               onClick={() => signIn('github')}
             >
-              Sign in with Google
+              Sign in with GitHub
             </Button>
           </form>
         </div>

@@ -43,7 +43,7 @@ const ConfirmationDialog = ({ open, setOpen, type }) => {
             })}
           >
             <Typography variant='h4'>
-              {type === 'delete-account' && 'Are you sure you want to deactivate your account?'}
+              {type === 'delete-account' && 'Are you sure you want to delete your account?'}
               {type === 'unsubscribe' && 'Are you sure to cancel your subscription?'}
               {type === 'suspend-account' && 'Are you sure?'}
               {type === 'delete-order' && 'Are you sure?'}
@@ -101,7 +101,7 @@ const ConfirmationDialog = ({ open, setOpen, type }) => {
           <Typography color='text.primary'>
             {userInput ? (
               <>
-                {type === 'delete-account' && 'Your account has been deactivated successfully.'}
+                {type === 'delete-account' && 'Your account has been deleted successfully.'}
                 {type === 'unsubscribe' && 'Your subscription cancelled successfully.'}
                 {type === 'suspend-account' && 'User has been suspended.'}
                 {type === 'delete-order' && 'Your order deleted successfully.'}
@@ -109,7 +109,7 @@ const ConfirmationDialog = ({ open, setOpen, type }) => {
               </>
             ) : (
               <>
-                {type === 'delete-account' && 'Account Deactivation Cancelled!'}
+                {type === 'delete-account' && 'Account Deletion Cancelled!'}
                 {type === 'unsubscribe' && 'Unsubscription Cancelled!!'}
                 {type === 'suspend-account' && 'Cancelled Suspension :)'}
                 {type === 'delete-order' && 'Order Deletion Cancelled'}

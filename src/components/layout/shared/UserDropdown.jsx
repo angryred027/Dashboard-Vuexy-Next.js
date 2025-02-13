@@ -39,9 +39,10 @@ const BadgeContentSpan = styled('span')({
   boxShadow: '0 0 0 2px var(--mui-palette-background-paper)'
 })
 
-const UserDropdown = () => {
+const UserDropdown = (props) => {
   // States
   const [open, setOpen] = useState(false)
+  // const dictionary = props.dictionary;
 
   // Refs
   const anchorRef = useRef(null)
@@ -125,21 +126,17 @@ const UserDropdown = () => {
                     </div>
                   </div>
                   <Divider className='mlb-1' />
-                  <MenuItem className='mli-2 gap-3' onClick={e => handleDropdownClose(e, '/pages/user-profile')}>
+                  <MenuItem className='mli-2 gap-3' onClick={e => handleDropdownClose(e, '/user-profile')}>
                     <i className='tabler-user' />
                     <Typography color='text.primary'>My Profile</Typography>
                   </MenuItem>
-                  <MenuItem className='mli-2 gap-3' onClick={e => handleDropdownClose(e, '/pages/account-settings')}>
-                    <i className='tabler-settings' />
-                    <Typography color='text.primary'>Settings</Typography>
-                  </MenuItem>
-                  <MenuItem className='mli-2 gap-3' onClick={e => handleDropdownClose(e, '/pages/pricing')}>
+                  <MenuItem className='mli-2 gap-3' onClick={e => handleDropdownClose(e, '/subscription')}>
                     <i className='tabler-currency-dollar' />
-                    <Typography color='text.primary'>Pricing</Typography>
+                    <Typography color='text.primary'>SubScription</Typography>
                   </MenuItem>
-                  <MenuItem className='mli-2 gap-3' onClick={e => handleDropdownClose(e, '/pages/faq')}>
-                    <i className='tabler-help-circle' />
-                    <Typography color='text.primary'>FAQ</Typography>
+                  <MenuItem className='mli-2 gap-3' onClick={e => handleDropdownClose(e, '/support')}>
+                    <i className='tabler-help' />
+                    <Typography color='text.primary'>FAQs</Typography>
                   </MenuItem>
                   <div className='flex items-center plb-2 pli-3'>
                     <Button

@@ -15,7 +15,7 @@ export async function POST(req) {
     }
   });
 
-  if (user) {
+  if (user && user.password) {
 
     const isPasswordValid = await bcrypt.compare(password, user.password);
 

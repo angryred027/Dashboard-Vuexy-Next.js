@@ -93,16 +93,16 @@ const SearchTable = () => {
   return (
     <Box p={4}>
       <Box display="flex" justifyContent="space-between"
-        sx={{ display: { md: 'block', lg: 'flex' } }} alignItems="center" mb={3}>
+        sx={{ display: { sm: 'block', md: 'flex', lg: 'flex' } }} alignItems="center" mb={3}>
         <Box>
           <Typography variant="h4" component="div" sx={{ fontWeight: "bold" }}>
-            Advanced Search
+            Reddit Subreddit Search
           </Typography>
         </Box>
 
         <Box display="flex" alignItems="center" gap={1}
           sx={{
-            display: { md: 'block', lg: 'flex', }
+            display: { sm: 'block', md: 'flex', lg: 'flex', }
           }}>
           <TextField
             label="SubReddit"
@@ -152,10 +152,13 @@ const SearchTable = () => {
         <Table>
           <TableHead>
             <TableRow>
-              <TableCell>Type</TableCell>
-              <TableCell>User Name</TableCell>
-              <TableCell>Karma / Post Title</TableCell>
-              <TableCell>URL</TableCell>
+              <TableCell>Subreddit</TableCell>
+              <TableCell>Age Required</TableCell>
+              <TableCell>Comment Karma</TableCell>
+              <TableCell>NSFW</TableCell>
+              <TableCell>Post Karma</TableCell>
+              <TableCell>Size</TableCell>
+              <TableCell>Link</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>

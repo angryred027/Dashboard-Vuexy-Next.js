@@ -18,6 +18,7 @@ model User {
   emailVerified DateTime?
   fullName      String?
   telegram      String?
+  role          Role      @default(user)
   createdAt     DateTime @default(now())
   updatedAt     DateTime @updatedAt
 
@@ -25,12 +26,17 @@ model User {
   sessions Session[]  // Relation to sessions
 }
 
+enum Role {
+  user
+  admin
+}
+
 model Account {
   id                String  @id @default(uuid())
   userId            String
   type              String
-  provider          String  // e.g., "google", "github", or "credentials"
-  providerAccountId String  @unique  // Unique account ID from provider
+  provider          String
+  providerAccountId String  @unique
   refresh_token     String?
   access_token      String?
   expires_at        Int?
@@ -52,4 +58,39 @@ model Session {
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
+model Plan {
+  id          Int       @id @default(autoincrement())
+  userId      Int       @map("user_id")
+  status      Status    @default(active)
+  planId      Int       @map("plan_id")
+  startDate   DateTime  @map("start_date")
+  endDate     DateTime? @map("end_date")
+  createdAt   DateTime  @default(now()) @map("created_at")
+  updatedAt   DateTime  @updatedAt @map("updated_at")
 
+  @@map("Plans")
+}
+
+enum Status {
+  active
+  expired
+  cancelled
+}
+
+model Transaction {
+  id              Int       @id @default(autoincrement())
+  userId          Int       @map("user_id")
+  amount          Float     @db.Decimal(10, 2)
+  status          tStatus    @default(pending)
+  transactionDate DateTime  @map("transaction_date")
+  createdAt       DateTime  @default(now()) @map("created_at")
+  updatedAt       DateTime  @updatedAt @map("updated_at")
+
+  @@map("Transactions")
+}
+
+enum tStatus {
+  completed
+  pending
+  failed
+}

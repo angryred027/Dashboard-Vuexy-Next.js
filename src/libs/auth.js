@@ -12,10 +12,6 @@ export const prismaAdapter = PrismaAdapter(prisma);
 export const getUserByAccount = async (providerAccountId, provider) => {
   const account = await prisma.account.findUnique({
     where: {
-      // provider_providerAccountId: {
-      //   providerAccountId: providerAccountId,
-      //   provider: provider,
-      // },
       provider: provider,
       providerAccountId: providerAccountId,
     },
@@ -126,7 +122,26 @@ export const authOptions = {
      * the `session()` callback. So we have to add custom parameters in `token`
      * via `jwt()` callback to make them accessible in the `session()` callback
      */
+    // async signIn({ user, account, profile }) {
+    //   //   // Check if the user already exists
 
+
+
+    //   return true;
+    // }
+    async isSignedUp({ user }) {
+      const existingUser = await prisma.user.findUnique({
+        where: {
+          email: user.email, // Or based on any other identifier
+        },
+      });
+      if (!existingUser) {
+        console.log("Email not exist.");
+      }
+      else {
+        console.log("Email is already signed up.")
+      }
+    },
     async jwt({ token, user }) {
       if (user) {
         /*

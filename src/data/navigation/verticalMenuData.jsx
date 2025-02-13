@@ -8,19 +8,13 @@ const verticalMenuData = dictionary => [
     },
     icon: 'tabler-smart-home',
     children: [
-      // This is how you will normally render menu item
-      {
-        label: dictionary['navigation'].crm,
-        icon: 'tabler-circle',
-        href: '/dashboards/crm'
-      },
       {
         label: dictionary['navigation'].analytics,
         icon: 'tabler-circle',
         href: '/dashboards/analytics'
       },
       {
-        label: dictionary['navigation'].eCommerce,
+        label: dictionary['navigation'].administrator,
         icon: 'tabler-circle',
         href: '/dashboards/ecommerce'
       },
@@ -47,7 +41,7 @@ const verticalMenuData = dictionary => [
         excludeLang: true
       },
       {
-        label: dictionary['navigation'].pricing,
+        label: dictionary['navigation'].subScription,
         href: '/front-pages/pricing',
         target: '_blank',
         excludeLang: true
@@ -75,7 +69,7 @@ const verticalMenuData = dictionary => [
 
   // This is how you will normally render menu section
   {
-    label: dictionary['navigation'].appsPages,
+    label: dictionary['navigation'].adminPanel,
     isSection: true,
     children: [
       {
@@ -90,7 +84,7 @@ const verticalMenuData = dictionary => [
             label: dictionary['navigation'].products,
             children: [
               {
-                label: dictionary['navigation'].list,
+                label: dictionary['navigation'].transactionHistory,
                 href: '/apps/ecommerce/products/list'
               },
               {
@@ -248,7 +242,7 @@ const verticalMenuData = dictionary => [
         ]
       },
       {
-        label: dictionary['navigation'].rolesPermissions,
+        label: dictionary['navigation'].userManagement,
         icon: 'tabler-lock',
         children: [
           {

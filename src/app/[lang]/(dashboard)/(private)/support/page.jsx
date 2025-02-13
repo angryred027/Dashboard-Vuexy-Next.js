@@ -4,15 +4,12 @@
 import { useState, useEffect } from 'react'
 
 // Component Imports
-import HelpCenterHeader from './HelpCenterHeader'
-import Articles from './Articles'
-import KnowledgeBase from './KnowledgeBase'
-import KeepLearning from './KeepLearning'
-import NeedHelp from './NeedHelp'
-import Questions from './Questions';
+import Faqs from './Faqs';
+import ContactUs from './ContactUs';
+
 import { useSettings } from '@core/hooks/useSettings'
 
-const HelpCenterWrapper = () => {
+const SupportWrapper = () => {
   // States
   const [searchValue, setSearchValue] = useState('')
 
@@ -29,14 +26,15 @@ const HelpCenterWrapper = () => {
 
   return (
     <>
-      <HelpCenterHeader searchValue={searchValue} setSearchValue={setSearchValue} />
+      {/* <HelpCenterHeader searchValue={searchValue} setSearchValue={setSearchValue} />
       <Articles />
       <KnowledgeBase />
       <KeepLearning />
-      <NeedHelp />
-      <Questions />
+      <NeedHelp /> */}
+      <Faqs />
+      <ContactUs />
     </>
   )
 }
 
-export default HelpCenterWrapper
+export default SupportWrapper
