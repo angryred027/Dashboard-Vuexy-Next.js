@@ -58,7 +58,7 @@ model Session {
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
-model Plan {
+model Subscription {
   id          Int       @id @default(autoincrement())
   userId      Int       @map("user_id")
   status      Status    @default(active)
@@ -68,7 +68,7 @@ model Plan {
   createdAt   DateTime  @default(now()) @map("created_at")
   updatedAt   DateTime  @updatedAt @map("updated_at")
 
-  @@map("Plans")
+  @@map("subscriptions")
 }
 
 enum Status {
@@ -80,17 +80,80 @@ enum Status {
 model Transaction {
   id              Int       @id @default(autoincrement())
   userId          Int       @map("user_id")
-  amount          Float     @db.Decimal(10, 2)
+  amount          Decimal     @db.Decimal(10, 2)
   status          tStatus    @default(pending)
   transactionDate DateTime  @map("transaction_date")
   createdAt       DateTime  @default(now()) @map("created_at")
   updatedAt       DateTime  @updatedAt @map("updated_at")
 
-  @@map("Transactions")
+  @@map("transactions")
 }
 
 enum tStatus {
   completed
   pending
   failed
+}
+
+model Plan {
+  id            Int      @id @default(autoincrement())
+  name          String   @db.VarChar(255)
+  price         Decimal    @db.Decimal(10, 2)
+  durationDays  Int      @map("duration_days")
+  benefits      String   @db.Text
+  createdAt     DateTime @default(now()) @map("created_at")
+  updatedAt     DateTime @updatedAt @map("updated_at")
+
+  @@map("plans")
+}
+
+model Notification {
+  id        Int      @id @default(autoincrement())
+  userId    Int      @map("user_id")
+  message   String   @db.Text
+  type      Type     @default(personal)
+  status    nStatus   @default(unread)
+  createdAt DateTime @default(now()) @map("created_at")
+
+  @@map("notifications")
+}
+
+enum Type {
+  global
+  personal
+}
+
+enum nStatus {
+  read
+  unread
+}
+
+model Affiliate {
+  id            Int      @id @default(autoincrement())
+  userId        Int      @map("user_id")
+  referralLink  String   @db.VarChar(255) @map("referral_link")
+  referrals     Int      @default(0)
+  commission    Decimal    @db.Decimal(10, 2) @default(0.00)
+  createdAt     DateTime @default(now()) @map("created_at")
+
+  @@map("affiliates")
+}
+
+model FAQ {
+  id          Int      @id @default(autoincrement())
+  question    String   @db.Text
+  answer      String   @db.Text
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @updatedAt @map("updated_at")
+
+  @@map("faqs")
+}
+
+model AdminLog {
+  id        Int      @id @default(autoincrement())
+  adminId   Int      @map("admin_id")
+  action    String   @db.Text
+  createdAt DateTime @default(now()) @map("created_at")
+
+  @@map("admin_logs")
 }
