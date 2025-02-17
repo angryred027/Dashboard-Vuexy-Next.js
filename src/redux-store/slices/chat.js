@@ -2,11 +2,11 @@
 import { createSlice } from '@reduxjs/toolkit'
 
 // Data Imports
-import { db } from '@/fake-db/apps/chat'
+// import { db } from '@/fake-db/apps/chat'
 
 export const chatSlice = createSlice({
   name: 'chat',
-  initialState: db,
+  initialState: "",
   reducers: {
     getActiveUserData: (state, action) => {
       const activeUser = state.contacts.find(user => user.id === action.payload)

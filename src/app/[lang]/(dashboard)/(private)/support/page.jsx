@@ -26,11 +26,6 @@ const SupportWrapper = () => {
 
   return (
     <>
-      {/* <HelpCenterHeader searchValue={searchValue} setSearchValue={setSearchValue} />
-      <Articles />
-      <KnowledgeBase />
-      <KeepLearning />
-      <NeedHelp /> */}
       <Faqs />
       <ContactUs />
     </>

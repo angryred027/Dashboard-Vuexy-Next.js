@@ -22,12 +22,15 @@ export async function POST(req) {
     if (!isPasswordValid) {
       return NextResponse.json(
         {
-          errorType: 'password',
-          message: 'Password is incorrect!',
+          error: {
+            password: {
+              message: 'Password is incorrect!',
+            }
+          }
         },
         {
           status: 401,
-          statusText: 'Please input correctly!'
+          statusText: 'Unauthorized'
         }
       )
     }
@@ -41,12 +44,15 @@ export async function POST(req) {
   } else {
     return NextResponse.json(
       {
-        errorType: 'email',
-        message: 'Email is not exist',
+        error: {
+          email: {
+            message: 'Email is not exist',
+          }
+        }
       },
       {
         status: 401,
-        statusText: 'Please sign up!'
+        statusText: 'Unauthorized'
       }
     )
   }

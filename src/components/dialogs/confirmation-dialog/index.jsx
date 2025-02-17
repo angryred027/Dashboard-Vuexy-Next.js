@@ -95,7 +95,7 @@ const ConfirmationDialog = ({ open, setOpen, type }) => {
           />
           <Typography variant='h4' className='mbe-2'>
             {userInput
-              ? `${type === 'delete-account' ? 'Deactivated' : type === 'unsubscribe' ? 'Unsubscribed' : type === 'delete-order' || 'delete-customer' ? 'Deleted' : 'Suspended!'}`
+              ? `${type === 'delete-account' ? 'Deleted' : type === 'unsubscribe' ? 'Unsubscribed' : type === 'delete-order' || 'delete-customer' ? 'Deleted' : 'Suspended!'}`
               : 'Cancelled'}
           </Typography>
           <Typography color='text.primary'>
@@ -109,11 +109,11 @@ const ConfirmationDialog = ({ open, setOpen, type }) => {
               </>
             ) : (
               <>
-                {type === 'delete-account' && 'Account Deletion Cancelled!'}
+                {type === 'delete-account' && 'Account Deleting Cancelled!'}
                 {type === 'unsubscribe' && 'Unsubscription Cancelled!!'}
                 {type === 'suspend-account' && 'Cancelled Suspension :)'}
-                {type === 'delete-order' && 'Order Deletion Cancelled'}
-                {type === 'delete-customer' && 'Customer Deletion Cancelled'}
+                {type === 'delete-order' && 'Order Deleting Cancelled'}
+                {type === 'delete-customer' && 'Customer Deleting Cancelled'}
               </>
             )}
           </Typography>

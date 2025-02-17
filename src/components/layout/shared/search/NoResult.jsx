@@ -15,20 +15,10 @@ const noResultData = [
     icon: 'tabler-search'
   },
   {
-    label: 'Analytics',
-    href: '/dashboards/analytics',
-    icon: 'tabler-chart-pie-2'
-  },
-  {
     label: 'User Profile',
-    href: '/pages/user-profile',
+    href: '/profile',
     icon: 'tabler-user'
   },
-  {
-    label: 'CRM',
-    href: '/dashboards/crm',
-    icon: 'tabler-chart-donut-3'
-  }
 ]
 
 const NoResult = ({ searchValue, setOpen }) => {

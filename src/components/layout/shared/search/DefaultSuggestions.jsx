@@ -13,99 +13,30 @@ const defaultSuggestions = [
     sectionLabel: 'Popular Searches',
     items: [
       {
-        label: 'Analytics',
-        href: '/dashboards/analytics',
-        icon: 'tabler-trending-up'
+        label: 'Advanced Search',
+        href: '/search',
+        icon: 'tabler-search'
       },
       {
-        label: 'CRM',
-        href: '/dashboards/crm',
-        icon: 'tabler-chart-pie-2'
+        label: 'FAQs',
+        href: '/support',
+        icon: 'tabler-help'
       },
-      {
-        label: 'eCommerce',
-        href: '/dashboards/ecommerce',
-        icon: 'tabler-shopping-cart'
-      },
-      {
-        label: 'User List',
-        href: '/apps/user/list',
-        icon: 'tabler-file-description'
-      }
+
     ]
   },
   {
-    sectionLabel: 'Apps',
+    sectionLabel: 'Recommended',
     items: [
       {
-        label: 'Calendar',
-        href: '/apps/calendar',
-        icon: 'tabler-calendar'
-      },
-      {
-        label: 'Invoice List',
-        href: '/apps/invoice/list',
-        icon: 'tabler-file-info'
-      },
-      {
-        label: 'User List',
-        href: '/apps/user/list',
-        icon: 'tabler-file-invoice'
-      },
-      {
-        label: 'Roles & Permissions',
-        href: '/apps/roles',
-        icon: 'tabler-lock'
-      }
-    ]
-  },
-  {
-    sectionLabel: 'Pages',
-    items: [
-      {
-        label: 'User Profile',
-        href: '/pages/user-profile',
-        icon: 'tabler-user'
-      },
-      {
-        label: 'Account Settings',
-        href: '/pages/account-settings',
-        icon: 'tabler-settings'
-      },
-      {
-        label: 'Pricing',
-        href: '/pages/pricing',
+        label: 'Subscription',
+        href: '/subscription',
         icon: 'tabler-currency-dollar'
       },
       {
-        label: 'FAQ',
-        href: '/pages/faq',
-        icon: 'tabler-help-circle'
-      }
-    ]
-  },
-  {
-    sectionLabel: 'Forms & Charts',
-    items: [
-      {
-        label: 'Form Layouts',
-        href: '/forms/form-layouts',
-        icon: 'tabler-layout'
-      },
-      {
-        label: 'Form Validation',
-        href: '/forms/form-validation',
-        icon: 'tabler-checkup-list'
-      },
-      {
-        label: 'Form Wizard',
-        href: '/forms/form-wizard',
-        icon: 'tabler-git-merge'
-      },
-      {
-        label: 'Apex Charts',
-        href: '/charts/apex-charts',
-        icon: 'tabler-chart-ppf'
+        label: 'Profile',
+        href: '/profile',
+        icon: 'tabler-user'
       }
     ]
   }
@@ -116,7 +47,7 @@ const DefaultSuggestions = ({ setOpen }) => {
   const { lang: locale } = useParams()
 
   return (
-    <div className='flex grow flex-wrap gap-x-[48px] gap-y-8 plb-14 pli-16 overflow-y-auto overflow-x-hidden bs-full'>
+    <div className='flex grow flex-wrap gap-x-[48px] gap-y-8 plb-14 pli-16 overflow-y-auto overflow-x-hidden'>
       {defaultSuggestions.map((section, index) => (
         <div
           key={index}

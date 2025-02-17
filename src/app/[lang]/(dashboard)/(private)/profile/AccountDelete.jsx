@@ -2,6 +2,7 @@
 
 // React Imports
 import { useState } from 'react'
+import { getSession } from "next-auth/react";
 
 // MUI Imports
 import Card from '@mui/material/Card'
@@ -12,16 +13,16 @@ import Checkbox from '@mui/material/Checkbox'
 import Button from '@mui/material/Button'
 import FormControl from '@mui/material/FormControl'
 import FormHelperText from '@mui/material/FormHelperText'
+import { ToastContainer, toast } from 'react-toastify';
 
 // Third-party Imports
 import { useForm, Controller } from 'react-hook-form'
-
+import { signOut, useSession } from 'next-auth/react'
 // Component Imports
-import ConfirmationDialog from '@components/dialogs/confirmation-dialog'
 
 const AccountDelete = () => {
   // States
-  const [open, setOpen] = useState(false)
+
 
   // Hooks
   const {
@@ -34,8 +35,47 @@ const AccountDelete = () => {
   // Vars
   const checkboxValue = watch('checkbox')
 
-  const onSubmit = () => {
-    setOpen(true)
+  const onSubmit = async () => {
+    const session = await getSession();
+    const user = session.user;
+    if (true) {
+      const email = user.email;
+      const res = await fetch('/api/profile', {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email })
+      });
+      const obj = await res.json();
+      if (res && res.ok) {
+        toast.success(obj.success.message, {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: true,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
+        await signOut({ callbackUrl: process.env.NEXT_PUBLIC_APP_URL });
+      } else {
+        toast.error(obj.error.message, {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: true,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
+      }
+    }
+    else {
+      return;
+    }
   }
 
   return (
@@ -57,7 +97,6 @@ const AccountDelete = () => {
           <Button variant='contained' color='error' type='submit' disabled={!checkboxValue}>
             Delete Account
           </Button>
-          <ConfirmationDialog open={open} setOpen={setOpen} type='delete-account' />
         </form>
       </CardContent>
     </Card>

@@ -156,7 +156,7 @@ const Customizer = ({ breakpoint = 'lg', dir = 'ltr', disableDirection = false }
           [styles.smallScreen]: isMobileScreen
         })}
       >
-        <div className={styles.toggler} onClick={handleToggle}>
+        {/* <div className={styles.toggler} onClick={handleToggle}>
           <i className='tabler-settings text-[22px]' />
         </div>
         <div className={styles.header}>
@@ -171,7 +171,7 @@ const Customizer = ({ breakpoint = 'lg', dir = 'ltr', disableDirection = false }
             </div>
             <i className='tabler-x text-textPrimary cursor-pointer' onClick={handleToggle} />
           </div>
-        </div>
+        </div> */}
         <ScrollWrapper
           {...(isBelowLgScreen
             ? { className: 'bs-full overflow-y-auto overflow-x-hidden' }

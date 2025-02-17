@@ -13,7 +13,7 @@ model User {
   name          String?
   userName      String?
   email         String   @unique
-  password      String?  // Required for credentials login, nullable for OAuth
+  password      String?
   image         String?
   emailVerified DateTime?
   fullName      String?
@@ -22,8 +22,15 @@ model User {
   createdAt     DateTime @default(now())
   updatedAt     DateTime @updatedAt
 
-  accounts Account[]  // Relation to OAuth accounts
-  sessions Session[]  // Relation to sessions
+  accounts      Account[]
+  sessions      Session[]
+
+  subscriptions Subscription[]
+  transactions  Transaction[]
+  affiliates    Affiliate[]
+  admin_logs    AdminLog[]
+  search_logs   SearchLog[]
+  notifications Notification[]
 }
 
 enum Role {
@@ -45,8 +52,8 @@ model Account {
   id_token          String?
   session_state     String?
 
-  @@unique([provider, providerAccountId])
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  @@unique([provider, providerAccountId])
 }
 
 model Session {
@@ -54,20 +61,23 @@ model Session {
   sessionToken String   @unique
   userId       String
   expires      DateTime
+  role         Role
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model Subscription {
   id          Int       @id @default(autoincrement())
-  userId      Int       @map("user_id")
+  userId      String
   status      Status    @default(active)
-  planId      Int       @map("plan_id")
-  startDate   DateTime  @map("start_date")
-  endDate     DateTime? @map("end_date")
-  createdAt   DateTime  @default(now()) @map("created_at")
-  updatedAt   DateTime  @updatedAt @map("updated_at")
+  planId      Int
+  startDate   DateTime
+  endDate     DateTime?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
 
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  plan Plan @relation(fields: [planId], references: [id], onDelete: Cascade)
   @@map("subscriptions")
 }
 
@@ -77,15 +87,29 @@ enum Status {
   cancelled
 }
 
+model Plan {
+  id            Int      @id @default(autoincrement())
+  name          String   @db.VarChar(255)
+  price         Decimal  @db.Decimal(10, 2)
+  durationDays  Int
+  benefits      String   @db.Text
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  subscriptions Subscription[]
+  @@map("plans")
+}
+
 model Transaction {
   id              Int       @id @default(autoincrement())
-  userId          Int       @map("user_id")
-  amount          Decimal     @db.Decimal(10, 2)
-  status          tStatus    @default(pending)
-  transactionDate DateTime  @map("transaction_date")
-  createdAt       DateTime  @default(now()) @map("created_at")
-  updatedAt       DateTime  @updatedAt @map("updated_at")
+  userId          String
+  amount          Decimal   @db.Decimal(10, 2)
+  status          tStatus   @default(pending)
+  transactionDate DateTime
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
 
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
   @@map("transactions")
 }
 
@@ -95,26 +119,15 @@ enum tStatus {
   failed
 }
 
-model Plan {
-  id            Int      @id @default(autoincrement())
-  name          String   @db.VarChar(255)
-  price         Decimal    @db.Decimal(10, 2)
-  durationDays  Int      @map("duration_days")
-  benefits      String   @db.Text
-  createdAt     DateTime @default(now()) @map("created_at")
-  updatedAt     DateTime @updatedAt @map("updated_at")
-
-  @@map("plans")
-}
-
 model Notification {
   id        Int      @id @default(autoincrement())
-  userId    Int      @map("user_id")
+  userId    String
   message   String   @db.Text
   type      Type     @default(personal)
-  status    nStatus   @default(unread)
-  createdAt DateTime @default(now()) @map("created_at")
+  status    nStatus  @default(unread)
+  createdAt DateTime @default(now())
 
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
   @@map("notifications")
 }
 
@@ -130,12 +143,13 @@ enum nStatus {
 
 model Affiliate {
   id            Int      @id @default(autoincrement())
-  userId        Int      @map("user_id")
-  referralLink  String   @db.VarChar(255) @map("referral_link")
+  userId        String
+  referralLink  String   @db.VarChar(255)
   referrals     Int      @default(0)
-  commission    Decimal    @db.Decimal(10, 2) @default(0.00)
-  createdAt     DateTime @default(now()) @map("created_at")
+  commission    Decimal  @db.Decimal(10, 2) @default(0.00)
+  createdAt     DateTime @default(now())
 
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
   @@map("affiliates")
 }
 
@@ -143,17 +157,35 @@ model FAQ {
   id          Int      @id @default(autoincrement())
   question    String   @db.Text
   answer      String   @db.Text
-  createdAt   DateTime @default(now()) @map("created_at")
-  updatedAt   DateTime @updatedAt @map("updated_at")
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
 
   @@map("faqs")
 }
 
 model AdminLog {
   id        Int      @id @default(autoincrement())
-  adminId   Int      @map("admin_id")
+  adminId   String
   action    String   @db.Text
-  createdAt DateTime @default(now()) @map("created_at")
+  createdAt DateTime @default(now())
 
+  user User @relation(fields: [adminId], references: [id], onDelete: Cascade)
   @@map("admin_logs")
+}
+
+model SearchLog {
+  id          Int      @id @default(autoincrement())
+  userId      String
+  searchTerm  String   @db.VarChar(255)
+  status      lStatus
+  response    String?  @db.Text
+  createdAt   DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  @@map("search_logs")
+}
+
+enum lStatus {
+  success
+  failure
 }

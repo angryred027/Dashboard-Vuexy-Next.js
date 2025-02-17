@@ -1,5 +1,5 @@
 // Component Imports
-import ForgotPassword from '@views/ForgotPassword'
+import ForgotPassword from './ForgotPassword'
 
 // Server Action Imports
 import { getServerMode } from '@core/utils/serverHelpers'

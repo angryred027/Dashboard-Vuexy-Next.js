@@ -81,7 +81,8 @@ export const authOptions = {
     }),
     GoogleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID,
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+      authorization: { params: { prompt: 'login' } },
     }),
     GitHubProvider({
       clientId: process.env.GITHUB_CLIENT_ID,
@@ -149,6 +150,7 @@ export const authOptions = {
          * in token which then will be available in the `session()` callback
          */
         token.name = user.name
+        token.role = user.role
       }
 
       return token
@@ -157,6 +159,7 @@ export const authOptions = {
       if (session.user) {
         // ** Add custom params to user in session which are added in `jwt()` callback via `token` parameter
         session.user.name = token.name
+        session.user.role = token.role
       }
 
       return session
@@ -200,5 +203,5 @@ export const authOptions = {
 
   secret: process.env.NEXTAUTH_SECRET,
   debug: true, // Enable debugging
-  allowDangerousEmailAccountLinking: true,
+  // allowDangerousEmailAccountLinking: true,
 };

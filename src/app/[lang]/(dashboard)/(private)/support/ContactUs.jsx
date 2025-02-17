@@ -20,7 +20,7 @@ import CustomTextField from '@core/components/mui/TextField'
 // import { useIntersection } from '@/hooks/useIntersection'
 
 // Styles Imports
-import frontCommonStyles from '@views/front-pages/styles.module.css'
+import frontCommonStyles from './front-styles.module.css'
 import styles from './styles.module.css'
 
 const ContactUs = () => {

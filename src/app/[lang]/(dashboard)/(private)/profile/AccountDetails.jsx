@@ -1,171 +1,237 @@
 'use client'
 
 // React Imports
-import { useState } from 'react'
-
+import { useState, useEffect } from 'react'
+import { getSession } from "next-auth/react";
 // MUI Imports
 import Grid from '@mui/material/Grid2'
 import Card from '@mui/material/Card'
 import CardContent from '@mui/material/CardContent'
 import Button from '@mui/material/Button'
-import Typography from '@mui/material/Typography'
 import { Controller, useForm } from 'react-hook-form'
 import { valibotResolver } from '@hookform/resolvers/valibot'
 import { email, object, minLength, string, pipe, nonEmpty } from 'valibot'
 import InputAdornment from '@mui/material/InputAdornment'
 import IconButton from '@mui/material/IconButton'
-
-import MenuItem from '@mui/material/MenuItem'
-import Chip from '@mui/material/Chip'
+import { ToastContainer, toast } from 'react-toastify';
 
 // Component Imports
 import CustomTextField from '@core/components/mui/TextField'
-import padding from 'tailwindcss-logical/plugins/padding'
 
 // Vars
-const initialData = {
-  firstName: '',
-  lastName: '',
-  email: '',
-  telegram: '',
-  password: '',
-  // state: 'New York',
-  // zipCode: '634880',
-  // country: 'usa',
-  // language: 'english',
-  // timezone: 'gmt-12',
-  // currency: 'usd'
-}
-
-const languageData = ['English', 'French',]
-
 const schema = object({
+  fullName: pipe(string(), nonEmpty("This filed is required")),
+  userName: pipe(string(), nonEmpty("This filed is required")),
   email: pipe(string(), minLength(1, 'This field is required'), email('Email is invalid')),
   password: pipe(
     string(),
     nonEmpty('This field is required'),
     minLength(5, 'Password must be at least 5 characters long')
-  )
+  ),
+  telegram: string(),
 })
-const AccountDetails = () => {
 
-  // States
-  const [formData, setFormData] = useState(initialData)
-  const [fileInput, setFileInput] = useState('')
-  const [imgSrc, setImgSrc] = useState('/images/avatars/1.png')
+const AccountDetails = () => {
+  const [user, setUser] = useState({});
   const [isPasswordShown, setIsPasswordShown] = useState(false)
   const [errorState, setErrorState] = useState(null)
 
-  // const [language, setLanguage] = useState(['English'])
+  useEffect(() => {
+    async function fetchData() {
+      const session = await getSession();
+      if (!session) {
+        return;
+      }
+      const email = session?.user.email;
+      const apiUrl = `/api/profile?email=${email}`;
+      const res = await fetch(apiUrl, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      if (res && res.ok) {
+        const obj = await res.json();
+        const user = obj.data;
+        setUser(user);
+        reset({
+          fullName: user.fullName || '',
+          userName: user.userName || '',
+          email: user.email || '',
+          password: '',
+          telegram: user.telegram || '',
+        });
+      }
+      else {
+        return;
+      }
+    }
+    fetchData();
+  }, []);
 
   const {
     control,
     handleSubmit,
-    formState: { errors }
+    formState: { errors },
+    reset,
   } = useForm({
     resolver: valibotResolver(schema),
     defaultValues: {
-      email: 'gilvesgonzalez@gmail.com',
-      password: 'Python2024!@#!'
+      fullName: '',
+      userName: '',
+      email: '',
+      password: '',
+      telegram: '',
     }
-  })
+  });
 
   const handleClickShowPassword = () => setIsPasswordShown(show => !show)
+  const onSubmit = async data => {
+    setErrorState(null);
 
-  const handleDelete = value => {
-    setLanguage(current => current.filter(item => item !== value))
-  }
+    const fullName = data.fullName;
+    const userName = data.userName;
+    const email = data.email;
+    const password = data.password;
+    const telegram = data.telegram;
+    console.log("telegram", telegram);
+    const res = await fetch('/api/profile', {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ fullName, userName, email, password, telegram }),
+    });
 
-  const handleChange = event => {
-    setLanguage(event.target.value)
-  }
-
-  const handleFormChange = (field, value) => {
-    setFormData({ ...formData, [field]: value })
-  }
-
-  const handleFileInputChange = file => {
-    const reader = new FileReader()
-    const { files } = file.target
-
-    if (files && files.length !== 0) {
-      reader.onload = () => setImgSrc(reader.result)
-      reader.readAsDataURL(files[0])
-
-      if (reader.result !== null) {
-        setFileInput(reader.result)
-      }
+    const resData = await res.json();
+    if (res && res.ok) {
+      toast.success(resData.success.message, {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
     }
-  }
-
-  const handleFileInputReset = () => {
-    setFileInput('')
-    setImgSrc('/images/avatars/1.png')
+    else {
+      setErrorState(resData.error);
+      toast.error(resData.error.message, {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+    }
   }
 
   return (
     <Card>
-      <CardContent className='mbe-4'>
-        <div className='flex max-sm:flex-col items-center gap-6'>
-          <img height={100} width={100} className='rounded' src={imgSrc} alt='Profile' />
-          <div className='flex flex-grow flex-col gap-4'>
-            <div className='flex flex-col sm:flex-row gap-4'>
-              <Button component='label' variant='contained' htmlFor='account-settings-upload-image'>
-                Upload New Photo
-                <input
-                  hidden
-                  type='file'
-                  value={fileInput}
-                  accept='image/png, image/jpeg'
-                  onChange={handleFileInputChange}
-                  id='account-settings-upload-image'
-                />
-              </Button>
-              <Button variant='tonal' color='secondary' onClick={handleFileInputReset}>
-                Reset
-              </Button>
-            </div>
-            <Typography>Allowed JPG, GIF or PNG. Max size of 800K</Typography>
-          </div>
-        </div>
-      </CardContent>
       <CardContent>
-        <form onSubmit={e => e.preventDefault()}>
+        <form noValidate autoComplete='on' onSubmit={handleSubmit(onSubmit)}>
           <Grid container spacing={6}>
             <Grid size={{ xs: 12, sm: 6 }}>
-              <CustomTextField
-                fullWidth
-                label='Full Name'
-                value={formData.firstName}
-                placeholder='John'
-                onChange={e => handleFormChange('fullName', e.target.value)}
+              <Controller
+                name='fullName'
+                control={control}
+                rules={{ required: true }}
+                render={({ field }) => (
+                  <CustomTextField
+                    {...field}
+                    autoFocus
+                    fullWidth
+                    type='text'
+                    label='* Full Name'
+                    placeholder='Enter your full name'
+                    onChange={e => {
+                      field.onChange(e.target.value)
+                      errorState !== null && setErrorState(null)
+                    }}
+                    {...((errors.fullName || errorState?.error?.fullName) && {
+                      error: true,
+                      helperText: errors?.fullName?.message
+                    })}
+                  />
+                )}
               />
             </Grid>
             <Grid size={{ xs: 12, sm: 6 }}>
-              <CustomTextField
-                fullWidth
-                label='User Name'
-                value={formData.lastName}
-                placeholder='Doe'
-                onChange={e => handleFormChange('userName', e.target.value)}
+              <Controller
+                name='userName'
+                control={control}
+                rules={{ required: true }}
+                render={({ field }) => (
+                  <CustomTextField
+                    {...field}
+                    autoFocus
+                    fullWidth
+                    type='text'
+                    label='* User Name'
+                    placeholder='Enter your user name'
+                    onChange={e => {
+                      field.onChange(e.target.value)
+                      errorState !== null && setErrorState(null)
+                    }}
+                    {...((errors.userName || errorState?.error?.userName) && {
+                      error: true,
+                      helperText: errors?.userName?.message
+                    })}
+                  />
+                )}
               />
             </Grid>
             <Grid size={{ xs: 12, sm: 6 }}>
-              <CustomTextField
-                fullWidth
-                label='Email'
-                value={formData.email}
-                placeholder='john.doe@gmail.com'
-                onChange={e => handleFormChange('email', e.target.value)}
+              <Controller
+                name='email'
+                control={control}
+                rules={{ required: true }}
+                render={({ field }) => (
+                  <CustomTextField
+                    {...field}
+                    autoFocus
+                    fullWidth
+                    type='email'
+                    label='* Email'
+                    placeholder='Enter your email'
+                    onChange={e => {
+                      field.onChange(e.target.value)
+                      errorState !== null && setErrorState(null)
+                    }}
+                    {...((errors.email || errorState?.error?.email) && {
+                      error: true,
+                      helperText: errors?.email?.message || errorState?.error?.email?.message
+                    })}
+                  />
+                )}
               />
             </Grid>
             <Grid size={{ sx: 12, sm: 6 }}>
-              <CustomTextField
-                fullWidth
-                label='Telegram'
-                value={formData.phoneNumber}
-                placeholder='@johndoe'
-                onChange={e => handleFormChange('telegram', e.target.value)}
+              <Controller
+                name='telegram'
+                control={control}
+                rules={{ required: false }}
+                render={({ field }) => (
+                  <CustomTextField
+                    {...field}
+                    fullWidth
+                    label='Telegram'
+                    placeholder='@johndoe'
+                    type='text'
+                    onChange={e => {
+                      field.onChange(e.target.value)
+                      errorState !== null && setErrorState(null)
+                    }}
+                    {...((errors.telegram || errorState?.error?.telegram) &&
+                    {
+                      error: true,
+                      helperText: errors?.telegram?.message || errorState?.error?.telegram?.message
+                    })}
+                  />
+                )}
               />
             </Grid>
             <Grid size={{ xs: 12, sm: 6 }}>
@@ -177,9 +243,9 @@ const AccountDetails = () => {
                   <CustomTextField
                     {...field}
                     fullWidth
-                    label='Password'
+                    label='* Password'
                     placeholder='············'
-                    id='login-password'
+                    id='signup-password'
                     type={isPasswordShown ? 'text' : 'password'}
                     onChange={e => {
                       field.onChange(e.target.value)
@@ -200,9 +266,10 @@ const AccountDetails = () => {
                         )
                       }
                     }}
-                    {...((errors.email || (errorState !== null && errorState.errorType === 'password')) && {
+                    {...((errors.password || errorState?.error?.password) &&
+                    {
                       error: true,
-                      helperText: errors?.email?.message || errorState?.message
+                      helperText: errors?.password?.message || errorState?.error?.password?.message
                     })}
                   />
                 )}
@@ -212,131 +279,10 @@ const AccountDetails = () => {
               <Button variant='contained' type='submit' >
                 Save Changes
               </Button>
-              <Button variant='tonal' type='reset' color='secondary' onClick={() => setFormData(initialData)}>
+              <Button variant='tonal' type='reset' color='secondary'>
                 Reset
               </Button>
             </Grid>
-            {/* <Grid size={{ xs: 12, sm: 6 }}>
-              <CustomTextField
-                fullWidth
-                label='Confirm'
-                value={formData.password}
-                placeholder='Password'
-                onChange={e => handleFormChange('password', e.target.value)}
-              />
-            </Grid> */}
-            {/* <Grid size={{ xs: 12, sm: 6 }}>
-              <CustomTextField
-                fullWidth
-                label='State'
-                value={formData.state}
-                placeholder='New York'
-                onChange={e => handleFormChange('state', e.target.value)}
-              />
-            </Grid>
-            <Grid size={{ xs: 12, sm: 6 }}>
-              <CustomTextField
-                fullWidth
-                type='number'
-                label='Zip Code'
-                value={formData.zipCode}
-                placeholder='123456'
-                onChange={e => handleFormChange('zipCode', e.target.value)}
-              />
-            </Grid>
-            <Grid size={{ xs: 12, sm: 6 }}>
-              <CustomTextField
-                select
-                fullWidth
-                label='Country'
-                value={formData.country}
-                onChange={e => handleFormChange('country', e.target.value)}
-              >
-                <MenuItem value='usa'>USA</MenuItem>
-                <MenuItem value='uk'>UK</MenuItem>
-                <MenuItem value='australia'>Australia</MenuItem>
-                <MenuItem value='germany'>Germany</MenuItem>
-              </CustomTextField>
-            </Grid> */}
-            {/* <Grid size={{ xs: 12, sm: 6 }}>
-              <CustomTextField
-                select
-                fullWidth
-                label='Language'
-                value={language}
-                slotProps={{
-                  select: {
-                    multiple: true, // @ts-ignore
-                    onChange: handleChange,
-                    renderValue: selected => (
-                      <div className='flex flex-wrap gap-2'>
-                        {selected.map(value => (
-                          <Chip
-                            key={value}
-                            clickable
-                            onMouseDown={event => event.stopPropagation()}
-                            size='small'
-                            label={value}
-                            onDelete={() => handleDelete(value)}
-                          />
-                        ))}
-                      </div>
-                    )
-                  }
-                }}
-              >
-                {languageData.map(name => (
-                  <MenuItem key={name} value={name}>
-                    {name}
-                  </MenuItem>
-                ))}
-              </CustomTextField>
-            </Grid>
-            <Grid size={{ xs: 12, sm: 6 }}>
-              <CustomTextField
-                select
-                fullWidth
-                label='TimeZone'
-                value={formData.timezone}
-                onChange={e => handleFormChange('timezone', e.target.value)}
-                slotProps={{
-                  select: { MenuProps: { PaperProps: { style: { maxHeight: 250 } } } }
-                }}
-              >
-                <MenuItem value='gmt-12'>(GMT-12:00) International Date Line West</MenuItem>
-                <MenuItem value='gmt-11'>(GMT-11:00) Midway Island, Samoa</MenuItem>
-                <MenuItem value='gmt-10'>(GMT-10:00) Hawaii</MenuItem>
-                <MenuItem value='gmt-09'>(GMT-09:00) Alaska</MenuItem>
-                <MenuItem value='gmt-08'>(GMT-08:00) Pacific Time (US & Canada)</MenuItem>
-                <MenuItem value='gmt-08-baja'>(GMT-08:00) Tijuana, Baja California</MenuItem>
-                <MenuItem value='gmt-07'>(GMT-07:00) Chihuahua, La Paz, Mazatlan</MenuItem>
-                <MenuItem value='gmt-07-mt'>(GMT-07:00) Mountain Time (US & Canada)</MenuItem>
-                <MenuItem value='gmt-06'>(GMT-06:00) Central America</MenuItem>
-                <MenuItem value='gmt-06-ct'>(GMT-06:00) Central Time (US & Canada)</MenuItem>
-                <MenuItem value='gmt-06-mc'>(GMT-06:00) Guadalajara, Mexico City, Monterrey</MenuItem>
-                <MenuItem value='gmt-06-sk'>(GMT-06:00) Saskatchewan</MenuItem>
-                <MenuItem value='gmt-05'>(GMT-05:00) Bogota, Lima, Quito, Rio Branco</MenuItem>
-                <MenuItem value='gmt-05-et'>(GMT-05:00) Eastern Time (US & Canada)</MenuItem>
-                <MenuItem value='gmt-05-ind'>(GMT-05:00) Indiana (East)</MenuItem>
-                <MenuItem value='gmt-04'>(GMT-04:00) Atlantic Time (Canada)</MenuItem>
-                <MenuItem value='gmt-04-clp'>(GMT-04:00) Caracas, La Paz</MenuItem>
-              </CustomTextField>
-            </Grid>
-            <Grid size={{ xs: 12, sm: 6 }}>
-              <CustomTextField
-                select
-                fullWidth
-                label='Currency'
-                value={formData.currency}
-                onChange={e => handleFormChange('currency', e.target.value)}
-              >
-                <MenuItem value='usd'>USD</MenuItem>
-                <MenuItem value='euro'>EUR</MenuItem>
-                <MenuItem value='pound'>Pound</MenuItem>
-                <MenuItem value='bitcoin'>Bitcoin</MenuItem>
-              </CustomTextField>
-            </Grid> */}
-
           </Grid>
         </form>
       </CardContent>

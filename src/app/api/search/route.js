@@ -1,35 +1,36 @@
 
 import { NextResponse } from 'next/server'
+import { getRedditData } from './api.js';
 
 export async function POST(req) {
+  const { subreddit, limit } = await req.json();
+
   try {
-    const { subreddit, limit } = await req.json();
+    const data = await getRedditData(subreddit, limit);
 
-    const externalApiUrl =
-      `http://49.13.193.48:5000/lowest_karma?subreddit=${subreddit}&limit=${limit}`;
-
-    console.log(externalApiUrl);
-
-    const response = await fetch(externalApiUrl, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
+    return NextResponse.json(
+      {
+        success: {
+          message: "Fetch data successfully!"
+        },
+        data: data,
       },
-    });
-
-    if (!response.ok) {
-      return NextResponse.json(
-        { error: 'Bad Request', message: 'Invalid input or request data.' },
-        { status: 400 }
-      );
-    }
-
-    const data = await response.json();
-    return NextResponse.json(data);
+      {
+        status: 200,
+        statusText: 'OK'
+      }
+    );
   } catch (error) {
     return NextResponse.json(
-      { error: 'Internal Server Error', message: 'An unexpected error occurred.' },
-      { status: 500 }
+      {
+        error: {
+          message: 'An unexpected error occurred. \n' + error
+        }
+      },
+      {
+        status: 500,
+        statusText: 'Internal Server Error'
+      }
     );
   }
 }

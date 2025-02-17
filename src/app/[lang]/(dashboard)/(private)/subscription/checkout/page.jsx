@@ -23,7 +23,7 @@ import { useSettings } from '@core/hooks/useSettings'
 import CustomTextField from '@core/components/mui/TextField'
 
 // Styles Imports
-import frontCommonStyles from '@views/front-pages/styles.module.css'
+import frontCommonStyles from '../front-styles.module.css'
 
 // Data
 const cardData = [

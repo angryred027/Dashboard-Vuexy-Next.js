@@ -10,7 +10,7 @@ require('dotenv').config();
 
 export async function POST(req) {
   // Vars
-  const { fullName, userName, email, password, telegram} = await req.json()
+  const { fullName, userName, email, password, telegram } = await req.json()
   const user = await prisma.user.findUnique({
     where: {
       email: email,
@@ -18,7 +18,18 @@ export async function POST(req) {
   })
 
   if (user) {
-      return NextResponse.json({ error: 'Email already exists' }, { status: 400 });
+    return NextResponse.json(
+      {
+        error: {
+          email: {
+            message: 'Email already exists'
+          }
+        }
+      },
+      {
+        status: 400,
+        statusText: "Bad Request",
+      });
   }
   else {
     try {
@@ -34,14 +45,42 @@ export async function POST(req) {
         }
       });
 
-      if(newCreatedUser){
-        return NextResponse.json({ message: 'Registered Successfully!' }, { status: 200 });
+      if (!newCreatedUser) {
+        return NextResponse.json(
+          {
+            error: {
+              message: 'Internal Server Error'
+            }
+          },
+          {
+            status: 500,
+            statusText: "Internal Server Error",
+          });
       }
-      else{
-        return NextResponse.json({ error: 'Registered Failed!' }, { status: 400 });
+      else {
+        return NextResponse.json(
+          {
+            success: {
+              message: 'Registration Successfully!'
+            }
+          },
+          {
+            status: 200,
+            statusText: "OK",
+          });
       }
     } catch (error) {
-        return NextResponse.json({ error: 'Register Failed: ' + error }, { status: 401 });
+      return NextResponse.json(
+        {
+          error: {
+            message: 'Register Failed: ' + error
+          }
+        },
+        {
+          status: 400,
+          statusText: "Bad Request"
+        }
+      );
     }
   }
 }

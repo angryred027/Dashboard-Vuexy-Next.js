@@ -6,7 +6,7 @@
   inset-inline-start: 50%;
   transform: translate(-50%, -50%);
   inline-size: 600px;
-  block-size: 585px;
+  block-size: 300px;
   background-color: var(--mui-palette-background-paper);
   border-radius: var(--border-radius);
   overflow: hidden;

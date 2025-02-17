@@ -3,7 +3,7 @@
 // MUI Imports
 import Grid from '@mui/material/Grid2'
 
-import SearchTable from '@views/react-table/SearchTable'
+import SearchTable from './SearchTable'
 
 const SearchPage = () => {
   return (
