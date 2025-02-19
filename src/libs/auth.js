@@ -4,6 +4,7 @@ import GoogleProvider from 'next-auth/providers/google'
 import GitHubProvider from 'next-auth/providers/github';
 import { PrismaAdapter } from '@auth/prisma-adapter'
 import { PrismaClient } from '@prisma/client'
+import { getCurrentSubscription } from '@/libs/GetCurrentSubscription'
 
 const prisma = new PrismaClient()
 
@@ -134,33 +135,24 @@ export const authOptions = {
          */
         const getSubscription = async (user) => {
           if (user?.role !== 'user') return null;
-
-          const subscription = await prisma.subscription.findFirst({
-            where: { userId: user.id },
-            orderBy: [
-              { status: 'desc' },
-              { startDate: 'desc' },
-              { endDate: 'desc' },
-            ]
-          });
-
-          if (!subscription) return null;
-
-          const endDate = new Date(subscription.endDate);
+          const userId = user.id;
+          const currentSubscription = await getCurrentSubscription(userId);
+          console.log("Current Subscription", currentSubscription);
+          if (!currentSubscription) return null;
+          const endDate = new Date(currentSubscription.endDate);
           const now = new Date();
-          const status = (now > endDate) ? 'expired' : subscription.status;
-          if (now > endDate) {
+          const status = (now > endDate) ? 'expired' : currentSubscription.status;
+          if (now > endDate && currentSubscription.status !== 'expired') {
             await prisma.subscription.update({
-              where: { id: subscription.id },
+              where: { id: currentSubscription.id },
               data: { status: 'expired' },
             });
           }
 
-          return { status, planId: subscription.planId };
+          return { status, planId: currentSubscription.planId };
         };
 
         const subscription = await getSubscription(user);
-
         token.name = user.name
         token.id = user.id
         token.role = user.role

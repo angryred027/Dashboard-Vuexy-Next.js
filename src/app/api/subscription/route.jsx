@@ -1,33 +1,25 @@
 import { NextResponse } from 'next/server';
 import { PrismaClient } from '@prisma/client';
+import { getCurrentSubscription } from '@/libs/GetCurrentSubscription'
 import { cookies } from "next/headers";
 import { JsonWebTokenError } from 'jsonwebtoken';
 
 const prisma = new PrismaClient();
-
-const getCurrentSubscription = async (userId) => {
-  const currentSubscription = await prisma.subscription.findFirst({
-    where: {
-      userId: userId
-    },
-    include: {
-      plan: true,
-    },
-    orderBy: [
-      { status: 'desc' },
-      { startDate: 'desc' },
-      { endDate: 'desc' },
-    ]
-  });
-  return currentSubscription;
-}
-
+let currentSubscription = null;
 const determineAction = async (user, plan) => {
-  const currentSubscription = await getCurrentSubscription(user.id);
-  if(!currentSubscription) return 'start';
-  else{
-    if(currentSubscription){
-
+  if (!user || !plan) return 'noAction';
+  const planId = plan.id;
+  const userId = user.id;
+  currentSubscription = await getCurrentSubscription(user.id);
+  if (!currentSubscription) return 'start';
+  else {
+    if (currentSubscription.status === 'expired') {
+      if (currentSubscription.planId === planId) return 'renew';
+      else return 'update';
+    }
+    else {
+      if (currentSubscription.planId !== planId) return 'update';
+      else return 'noAction';
     }
   }
 }
@@ -39,6 +31,19 @@ export async function POST(req) {
     if (!user || !plan) {
       throw new Error('No User Data or Plan Data');
     }
+
+    const actionType = determineAction(user, plan);
+    switch(actionType){
+      case 'start':
+        break;
+      case 'renew':
+        break;
+      case 'update':
+        break;
+      default:
+        break;
+    }
+
     const userId = user.id;
     const planId = plan.id;
     const durationDays = Number.parseInt(plan.durationDays, 10);
@@ -61,6 +66,10 @@ export async function POST(req) {
       { status: 500 }
     );
   }
+}
+
+const startSubscription = async (user, plan) => {
+  
 }
 
 
