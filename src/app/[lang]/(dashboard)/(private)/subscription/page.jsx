@@ -72,43 +72,35 @@ const PricingPlan = () => {
       setPricingPlan('monthly')
     }
   }
-  const renewSubscription = async (user, plan) => {
-    if (!session) {
-      return;
-    }
-    console.log(plan)
-    const data = { user: user, plan: plan };
+
+  const handleSubscriptionAction = async (user, plan) => {
+    if (!session) return;
+
     const res = await fetch('/api/subscription', {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ data })
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ user, plan }),
     });
+
     const obj = await res.json();
-    if (res && res.ok) {
-      session.user.subscription = {
-        planId: plan.id,
-        status: 'active',
-      }
-      console.log(session);
+    if (res.ok) {
+      session.user.subscription = { planId: plan.id, status: 'active' };
       document.cookie = `session=${encodeURIComponent(JSON.stringify(session))}; path=/`;
 
       toast.success(obj.success.message, {
-        position: "top-right",
+        position: 'top-right',
         autoClose: 5000,
         hideProgressBar: true,
         closeOnClick: true,
         pauseOnHover: true,
         draggable: true,
-        progress: undefined,
-        theme: "light",
+        theme: 'light',
       });
-    }
-    else {
-      const error = obj.error;
+    } else {
+      console.error(obj.error);
     }
   }
+
   const handleClick = async (e, plan) => {
 
     const clickedId = e.target.id;
@@ -156,7 +148,7 @@ const PricingPlan = () => {
             progress: undefined,
             theme: "light",
           });
-          await renewSubscription(user, plan);
+          await handleSubscriptionAction(user, plan);
         }
         else {
           toast.error(resData.error.message, {

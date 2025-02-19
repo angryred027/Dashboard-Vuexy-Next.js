@@ -137,7 +137,11 @@ export const authOptions = {
 
           const subscription = await prisma.subscription.findFirst({
             where: { userId: user.id },
-            orderBy: { updatedAt: 'desc' },
+            orderBy: [
+              { status: 'desc' },
+              { startDate: 'desc' },
+              { endDate: 'desc' },
+            ]
           });
 
           if (!subscription) return null;
