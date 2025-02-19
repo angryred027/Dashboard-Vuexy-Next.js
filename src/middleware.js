@@ -17,7 +17,7 @@ export async function middleware(req) {
 
   if (
     token?.role === "user" &&
-    (!token?.subscription || token.subscription.status === "expired") &&
+    (!token?.subscription || token.subscription.status !== "active") &&
     subscriptionRoutes.some((route) => pathname.includes(route))
   ) {
     return NextResponse.redirect(new URL("/subscription", origin));
