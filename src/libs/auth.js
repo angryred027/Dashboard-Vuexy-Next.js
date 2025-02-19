@@ -143,7 +143,14 @@ export const authOptions = {
           if (!subscription) return null;
 
           const endDate = new Date(subscription.endDate);
-          const status = new Date() > endDate ? 'expired' : subscription.status;
+          const now = new Date();
+          const status = (now > endDate) ? 'expired' : subscription.status;
+          if (now > endDate) {
+            await prisma.subscription.update({
+              where: { id: subscription.id },
+              data: { status: 'expired' },
+            });
+          }
 
           return { status, planId: subscription.planId };
         };
