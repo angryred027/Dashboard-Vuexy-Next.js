@@ -1,19 +1,15 @@
 // React Imports
 "use client"
 import { useState, useEffect } from 'react'
-
+import { useRouter } from 'next/navigation'
 // Next Imports
 import Link from 'next/link'
+import { getSession, useSession } from "next-auth/react";
 
 // MUI Imports
-import Typography from '@mui/material/Typography'
-import Grid from '@mui/material/Grid2'
-import Card from '@mui/material/Card'
-import CardContent from '@mui/material/CardContent'
-import Switch from '@mui/material/Switch'
-import Chip from '@mui/material/Chip'
-import Button from '@mui/material/Button'
-import InputLabel from '@mui/material/InputLabel'
+import { CircularProgress, Grid2, Card, Typography, CardContent, Button }
+  from '@mui/material';
+import { ToastContainer, toast } from 'react-toastify';
 
 // Third-party Imports
 import classnames from 'classnames'
@@ -35,18 +31,39 @@ const PricingPlan = () => {
   // States
   const [pricingPlan, setPricingPlan] = useState('annually')
   const [plans, setPlans] = useState([]);
+  const router = useRouter();
+  const [loading, setLoading] = useState(false);
+  const [clickedId, setClickedId] = useState(-100);
+  const [currentPlanId, setCurrentPlanId] = useState(-100);
+  const { data: session, status } = useSession();
+
   useEffect(() => {
+    getCurrentPlanId();
     async function fetchData() {
       const res = await fetch('/api/plan');
-      if(res && res.ok){
+      if (res && res.ok) {
         const obj = await res.json();
         const plans = obj.data;
         setPlans(plans);
-        console.log(plans, plans[0]);
       }
     }
     fetchData();
-  }, []);
+  }, [session]);
+
+  const getCurrentPlanId = () => {
+    const planId = session?.user?.subscription?.planId;
+    if (planId) setCurrentPlanId(planId);
+    else return setCurrentPlanId(-100);
+  }
+
+  const getPlanButtonText = (planId) => {
+    if (currentPlanId > 0) {
+      if (planId < currentPlanId) return "Downgrade";
+      else if (planId === currentPlanId) return "Renew";
+      else if (planId > currentPlanId) return "Upgrade";
+    }
+    else return "Get Started";
+  }
 
   const handleChange = e => {
     if (e.target.checked) {
@@ -54,6 +71,110 @@ const PricingPlan = () => {
     } else {
       setPricingPlan('monthly')
     }
+  }
+  const renewSubscription = async (user, plan) => {
+    if (!session) {
+      return;
+    }
+    console.log(plan)
+    const data = { user: user, plan: plan };
+    const res = await fetch('/api/subscription', {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ data })
+    });
+    const obj = await res.json();
+    if (res && res.ok) {
+      session.user.subscription = {
+        planId: plan.id,
+        status: 'active',
+      }
+      console.log(session);
+      document.cookie = `session=${encodeURIComponent(JSON.stringify(session))}; path=/`;
+
+      toast.success(obj.success.message, {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+    }
+    else {
+      const error = obj.error;
+    }
+  }
+  const handleClick = async (e, plan) => {
+
+    const clickedId = e.target.id;
+    setLoading(true);
+    setClickedId(clickedId);
+
+    if (plan) {
+      if (plan.id !== 1) {
+        const url = `/subscription/checkout?amount=${plan.price}`;
+        router.push(url);
+      }
+      else {
+        if (!session) {
+          setLoading(false);
+          return;
+        }
+        const user = session.user;
+        const userId = user?.id;
+        const description = "Subscription Upgrade From 'Free' to 'Basic'";
+        const amount = Number.parseFloat(plan.price);
+        const data = {
+          userId: userId,
+          description: description,
+          amount: amount,
+          status: 'Completed',
+        }
+        console.log(data)
+        const apiUrl = `/api/transaction`;
+        const res = await fetch(apiUrl, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(data),
+        });
+        const resData = await res.json();
+        if (res && res.ok) {
+          toast.success(resData.success.message, {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: true,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+          });
+          await renewSubscription(user, plan);
+        }
+        else {
+          toast.error(resData.error.message, {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: true,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+          });
+          setLoading(false);
+          return;
+        }
+      }
+    }
+    setLoading(false);
   }
 
   return (
@@ -87,9 +208,9 @@ const PricingPlan = () => {
             </Typography>
           </div>
         </div>
-        <Grid container spacing={6}>
+        <Grid2 container spacing={6}>
           {plans.map((plan, index) => (
-            <Grid key={index} size={{ xs: 12, lg: 4 }}>
+            <Grid2 key={index} size={{ xs: 12, lg: 4 }}>
               <Card className={`${true && 'border-2 border-[var(--mui-palette-primary-main)] shadow-xl'}`}>
                 <CardContent className='flex flex-col gap-8 p-8'>
                   <div className='is-full flex flex-col items-center gap-3'>
@@ -108,9 +229,9 @@ const PricingPlan = () => {
                       </Typography>
                     </div>
                   </div>
-                  {/* <div>
+                  <div>
                     <div className='flex flex-col gap-3 mbs-3'>
-                      {plan.features.map((feature, index) => (
+                      {plan.benefits.map((feature, index) => (
                         <div key={index} className='flex items-center gap-[12px]'>
                           <CustomAvatar color='primary' skin={plan.current ? 'filled' : 'light'} size={20}>
                             <i className='tabler-check text-sm' />
@@ -119,15 +240,26 @@ const PricingPlan = () => {
                         </div>
                       ))}
                     </div>
-                  </div> */}
-                  <Button component={Link} href='/subscription/checkout' variant={plan.current ? 'contained' : 'tonal'}>
-                    Get Started
+                  </div>
+                  <Button
+                    id={index}
+                    // component={Link}
+                    // href={`/subscription/checkout?amount=${plan.price}`}
+                    disabled={(currentPlanId === index + 1) &&
+                      session?.user?.subscription?.status !== 'expired'}
+                    onClick={(e) => { handleClick(e, plan) }}
+                    variant={(plan.id == index + 1) ? 'contained' : 'tonal'}>
+                    {(loading && clickedId == index) ? (
+                      <CircularProgress size={20} color="inherit" />
+                    ) : (
+                      getPlanButtonText(plan.id)
+                    )}
                   </Button>
                 </CardContent>
               </Card>
-            </Grid>
+            </Grid2>
           ))}
-        </Grid>
+        </Grid2>
       </div>
     </section>
   )

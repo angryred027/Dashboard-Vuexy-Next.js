@@ -105,7 +105,9 @@ export const authOptions = {
      * If you use a custom credentials provider, user accounts will not be persisted in a database by NextAuth.js (even if one is configured).
      * The option to use JSON Web Tokens for session tokens must be enabled to use a custom credentials provider.
      */
+    // strategy: 'jwt',
     strategy: 'jwt',
+
 
     // ** Seconds - How long until an idle session expires and is no longer valid
     maxAge: 30 * 24 * 60 * 60 // ** 30 days
@@ -123,34 +125,62 @@ export const authOptions = {
      * the `session()` callback. So we have to add custom parameters in `token`
      * via `jwt()` callback to make them accessible in the `session()` callback
      */
-    // async signIn({ user, account, profile }) {
-    //   //   // Check if the user already exists
 
-
-
-    //   return true;
-    // }
-    async isSignedUp({ user }) {
-      const existingUser = await prisma.user.findUnique({
-        where: {
-          email: user.email, // Or based on any other identifier
-        },
-      });
-      if (!existingUser) {
-        console.log("Email not exist.");
-      }
-      else {
-        console.log("Email is already signed up.")
-      }
-    },
     async jwt({ token, user }) {
       if (user) {
         /*
          * For adding custom parameters to user in session, we first need to add those parameters
          * in token which then will be available in the `session()` callback
          */
+        const getSubscription = async (user) => {
+          if (user) {
+            const subscription = await prisma.subscription.findFirst({
+              where: {
+                userId: user.id,
+              },
+              orderBy: {
+                updatedAt: 'desc',
+              }
+            });
+
+            if (subscription) {
+              const startDate = new Date(subscription.startDate).getDate();
+              const endDate = new Date(subscription.endDate).getDate();
+
+              let status = subscription.status;
+              const planId = subscription.planId;
+              const now = new Date();
+              if (now > endDate) {
+                status = 'expired';
+              }
+
+              const result = {
+                status: status,
+                planId: planId,
+              }
+              const updatedSub = await prisma.subscription.update({
+                where: {
+                  userId: user.id,
+                },
+                data: {
+                  status: 'expired'
+                }
+              });
+              return result;
+            }
+            else return null;
+          }
+          else {
+            return null;
+          }
+        };
+        const subscription = await getSubscription(user);
+        // const subscription = null;
+
         token.name = user.name
+        token.id = user.id
         token.role = user.role
+        token.subscription = subscription
       }
 
       return token
@@ -159,49 +189,15 @@ export const authOptions = {
       if (session.user) {
         // ** Add custom params to user in session which are added in `jwt()` callback via `token` parameter
         session.user.name = token.name
+        session.user.id = token.id
         session.user.role = token.role
+        session.user.subscription = token.subscription;
       }
 
       return session
     },
-
-    // async signIn({ user, account, profile }) {
-    //   // console.log('User:', user);
-    //   // console.log('Account:', account);
-    //   // console.log('Profile:', profile);
-
-    //   // Check if the user already exists in the database
-    //   const existingUser = await prisma.user.findUnique({
-    //     where: { email: user.email },
-    //   });
-
-    //   console.log('Existing User:', existingUser); // Debugging
-
-    //   // If the user doesn't exist, create a new user in the database
-    //   if (!existingUser) {
-    //     // await prisma.user.create({
-    //     //   data: {
-    //     //     email: user.email,
-    //     //     userName: user.name,
-    //     //     fullName: user.name,
-    //     //     password: "123456",
-    //     //     image: user.image,
-    //     //     provider: account.provider,
-    //     //   },
-    //     // });
-    //   } else if (existingUser && existingUser.provider !== account.provider) {
-    //     // Optionally, update the provider if it differs from the current provider.
-    //     // await prisma.user.update({
-    //     //   where: { email: user.email },
-    //     //   data: { provider: account.provider },
-    //     // });
-    //   }
-
-    //   // return existingUser;
-    // },
   },
-
   secret: process.env.NEXTAUTH_SECRET,
   debug: true, // Enable debugging
-  // allowDangerousEmailAccountLinking: true,
+  allowDangerousEmailAccountLinking: true,
 };

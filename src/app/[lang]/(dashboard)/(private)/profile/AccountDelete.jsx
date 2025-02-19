@@ -38,7 +38,7 @@ const AccountDelete = () => {
   const onSubmit = async () => {
     const session = await getSession();
     const user = session.user;
-    if (true) {
+    if (user) {
       const email = user.email;
       const res = await fetch('/api/profile', {
         method: "DELETE",

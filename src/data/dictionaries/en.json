@@ -5,7 +5,7 @@
     "subScription": "SubScription",
     "support": "Support",
     "privacy": "Privacy Policy",
-    "accountSetting": "Account Setting",
+    "accountSetting": "User Account",
     "profile": "Profile",
     "transactionHistory": "Transaction History",
     "adminPanel": "Admin Panel",
@@ -16,7 +16,6 @@
     "content": "Content",
     "notifications": "Notification",
     "logs": "Logs",
-    
     "comingSoon": "Coming Soon",
     "pageNotFound404": "Page Not Found - 404",
     "notAuthorized401": "Not Authorized - 401"

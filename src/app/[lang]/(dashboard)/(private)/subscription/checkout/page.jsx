@@ -1,5 +1,6 @@
 'use client'
 import { useState, useEffect } from 'react'
+import { useRouter } from 'next/navigation'
 
 // MUI Imports
 import Card from '@mui/material/Card'
@@ -13,6 +14,7 @@ import Divider from '@mui/material/Divider'
 
 // Third-party Imports
 import classnames from 'classnames'
+import { ToastContainer, toast } from 'react-toastify';
 
 // Component Imports
 import CustomInputHorizontal from '@core/components/custom-inputs/Horizontal'
@@ -24,6 +26,7 @@ import CustomTextField from '@core/components/mui/TextField'
 
 // Styles Imports
 import frontCommonStyles from '../front-styles.module.css'
+import { getSession, useSession } from 'next-auth/react'
 
 // Data
 const cardData = [
@@ -77,6 +80,102 @@ const cardData = [
 const countries = ['Australia', 'Brazil', 'Canada', 'India', 'United Arab Emirates', 'United Kingdom', 'United States']
 
 const Payment = ({ data }) => {
+  const router = useRouter();
+  // const [amount, setAmount] = useState(null)
+  // useEffect(() => {
+  //   if (router.query.amount) {
+  //     setAmount(router.query.amount) // Ensure the query parameter is available
+  //   }
+  // }, [router.query.amount])
+  // const { amount } = router.query;
+  // console.log(router.query);
+  const [errorState, setErrorState] = useState([]);
+  const { data: session, status } = useSession();
+
+  const pay = async (data) => {
+    if (session) {
+      const userId = session.user?.id;
+      console.log(session.user.id);
+      const data = {
+        userId: userId,
+        amount: 0,
+        description: 'Payment'
+      }
+      const res = await fetch('/api/payment', {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data)
+      });
+      const obj = await res.json();
+      if (res && res.ok) {
+        toast.success(obj.success.message, {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: true,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
+      }
+      else {
+        const error = obj.error;
+        setErrorState(error);
+        return;
+      }
+    }
+  }
+  const renewSubscription = async (user, plan) => {
+
+    const data = { user, plan }
+    const res = await fetch('/api/subscription', {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data)
+    });
+    const obj = await res.json();
+    if (res && res.ok) {
+      toast.success(obj.success.message, {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+    }
+    else {
+      const error = obj.error;
+      setErrorState(error);
+    }
+  }
+  const handlePayment = async () => {
+    const user = session?.user;
+
+    ///for test
+    const plan = {
+      "id": 2,
+      "name": "Basic",
+      "price": "10",
+      "durationDays": 30,
+      "benefits": [
+        "Advanced Search",
+        "100 Searches/Day",
+        "Limited Support"
+      ],
+      "createdAt": "2025-02-17T22:29:22.614Z",
+      "updatedAt": "2025-02-17T22:28:17.000Z"
+    }
+    await pay('');
+    await renewSubscription(user, plan);
+  }
   // Vars
   const buttonProps = {
     variant: 'tonal',
@@ -231,8 +330,8 @@ const Payment = ({ data }) => {
                 <div className='flex flex-col gap-4 p-6 bg-actionHover rounded'>
                   <Typography>A simple start for everyone</Typography>
                   <div className='flex items-baseline'>
-                    <Typography variant='h1'>$59.99</Typography>
-                    <Typography component='sub'>/month</Typography>
+                    <Typography variant='h1'>${'10'}</Typography>
+                    <Typography component='sub'> / 30 Days</Typography>
                   </div>
                   <OpenDialogOnElementClick
                     element={Button}
@@ -265,10 +364,19 @@ const Payment = ({ data }) => {
                 <Button
                   variant='contained'
                   color='success'
+                  onClick={handlePayment}
                   endIcon={<DirectionalIcon ltrIconClass='tabler-arrow-right' rtlIconClass='tabler-arrow-left' />}
                 >
                   Proceed With Payment
                 </Button>
+                {/* <Button
+                  variant='contained'
+                  color='primary'
+                  onClick={handleGoBack}
+                  endIcon={<DirectionalIcon ltrIconClass='tabler-arrow-right' rtlIconClass='tabler-arrow-left' />}
+                >
+                  Go to Back
+                </Button> */}
               </div>
               <Typography>
                 By continuing, you accept to our Terms of Services and Privacy Policy. Please note that payments are

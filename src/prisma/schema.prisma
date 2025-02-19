@@ -92,7 +92,7 @@ model Plan {
   name          String   @db.VarChar(255)
   price         Decimal  @db.Decimal(10, 2)
   durationDays  Int
-  benefits      String   @db.Text
+  benefits      Json
   createdAt     DateTime @default(now())
   updatedAt     DateTime @updatedAt
 
@@ -103,6 +103,7 @@ model Plan {
 model Transaction {
   id              Int       @id @default(autoincrement())
   userId          String
+  description     String
   amount          Decimal   @db.Decimal(10, 2)
   status          tStatus   @default(pending)
   transactionDate DateTime

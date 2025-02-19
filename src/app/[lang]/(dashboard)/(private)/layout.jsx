@@ -13,7 +13,6 @@ import VerticalFooter from '@components/layout/vertical/Footer'
 import Customizer from '@core/components/customizer'
 import ScrollToTop from '@core/components/scroll-to-top'
 import AuthGuard from '@/hocs/AuthGuard'
-
 // Config Imports
 import { i18n } from '@configs/i18n'
 
@@ -24,7 +23,6 @@ import { getMode, getSystemMode } from '@core/utils/serverHelpers'
 const Layout = async props => {
   const params = await props.params
   const { children } = props
-
   // Vars
   const direction = i18n.langDirection[params.lang]
   const dictionary = await getDictionary(params.lang)

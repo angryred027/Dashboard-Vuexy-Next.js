@@ -6,9 +6,12 @@ import { PrismaClient } from '@prisma/client';
 import bcrypt from 'bcrypt';
 
 const prisma = new PrismaClient();
+
 export async function POST(req) {
+  
   // Vars
   const { email, password } = await req.json()
+
   const user = await prisma.user.findUnique({
     where: {
       email: email,

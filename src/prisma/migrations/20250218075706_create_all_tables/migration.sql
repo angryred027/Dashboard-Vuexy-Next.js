@@ -78,9 +78,23 @@ CREATE TABLE "subscriptions" (
 );
 
 -- CreateTable
+CREATE TABLE "plans" (
+    "id" SERIAL NOT NULL,
+    "name" VARCHAR(255) NOT NULL,
+    "price" DECIMAL(10,2) NOT NULL,
+    "durationDays" INTEGER NOT NULL,
+    "benefits" JSONB NOT NULL,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3) NOT NULL,
+
+    CONSTRAINT "plans_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
 CREATE TABLE "transactions" (
     "id" SERIAL NOT NULL,
     "userId" TEXT NOT NULL,
+    "description" TEXT NOT NULL,
     "amount" DECIMAL(10,2) NOT NULL,
     "status" "tStatus" NOT NULL DEFAULT 'pending',
     "transactionDate" TIMESTAMP(3) NOT NULL,
@@ -88,19 +102,6 @@ CREATE TABLE "transactions" (
     "updatedAt" TIMESTAMP(3) NOT NULL,
 
     CONSTRAINT "transactions_pkey" PRIMARY KEY ("id")
-);
-
--- CreateTable
-CREATE TABLE "plans" (
-    "id" SERIAL NOT NULL,
-    "name" VARCHAR(255) NOT NULL,
-    "price" DECIMAL(10,2) NOT NULL,
-    "durationDays" INTEGER NOT NULL,
-    "benefits" TEXT NOT NULL,
-    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "updatedAt" TIMESTAMP(3) NOT NULL,
-
-    CONSTRAINT "plans_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable

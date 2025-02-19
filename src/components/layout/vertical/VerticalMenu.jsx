@@ -61,7 +61,7 @@ const VerticalMenu = ({ dictionary, scrollMenu }) => {
         <SubMenu
           label={dictionary['navigation'].dashboard}
           icon={<i className='tabler-user' />}
-          suffix={<CustomChip label='5' size='small' color='error' round='true' />}
+          suffix={<CustomChip label='1 +' size='small' color='error' round='true' />}
         >
           <MenuItem href={`/${locale}/search`}>{dictionary['navigation'].search}</MenuItem>
           <MenuItem href={`/${locale}/subscription`}>

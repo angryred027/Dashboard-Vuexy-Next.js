@@ -1,16 +1,74 @@
 // MUI Imports
+import Typography from '@mui/material/Typography'
 import Grid from '@mui/material/Grid2'
 
-// Component Imports
+// SVG Imports
+import Check from '@assets/svg/front-pages/landing-page/Check'
+import User from '@assets/svg/front-pages/landing-page/User'
+import LaptopCharging from '@assets/svg/front-pages/landing-page/LaptopCharging'
+import Diamond from '@assets/svg/front-pages/landing-page/Diamond'
+
+// Styles Imports
+import frontCommonStyles from './front-styles.module.css'
+
+// Data
+const statData = [
+  {
+    title: 'User',
+    value: '',
+    svg: <LaptopCharging color='var(--mui-palette-primary-main)' />,
+    color: 'var(--mui-palette-primary-darkerOpacity)',
+    isHover: false
+  },
+  {
+    title: 'Role',
+    value: '',
+    svg: <User color='var(--mui-palette-success-main)' />,
+    color: 'var(--mui-palette-success-darkerOpacity)',
+    isHover: false
+  },
+  {
+    title: 'SubScription',
+    value: '',
+    svg: <Diamond color='var(--mui-palette-info-main)' />,
+    color: 'var(--mui-palette-info-darkerOpacity)',
+    isHover: false
+  },
+  {
+    title: 'Expire',
+    value: '',
+    svg: <Check color='var(--mui-palette-warning-main)' />,
+    color: 'var(--mui-palette-warning-darkerOpacity)',
+    isHover: false
+  }
+]
 
 const Dashboard = () => {
   return (
-    <Grid container spacing={6}>
-      <Grid size={{ xs: 12 }}>
-      </Grid>
-      <Grid size={{ xs: 12 }}>
-      </Grid>
-    </Grid>
+    <section className='plb-[84px] bg-backgroundPaper'>
+      <div className={frontCommonStyles.layoutSpacing}>
+        <Grid container spacing={6}>
+          {statData.map((stat, index) => (
+            <Grid key={index} size={{ xs: 12, sm: 6, md: 3 }}>
+              <div
+                className='flex flex-col items-center justify-center gap-y-4 border p-6 rounded'
+                style={{
+                  borderColor: stat.color
+                }}
+              >
+                {stat.svg}
+                <div className='text-center'>
+                  <Typography variant='h3' className='font-medium'>
+                    {stat.value}
+                  </Typography>
+                  <Typography className='font-medium'>{stat.title}</Typography>
+                </div>
+              </div>
+            </Grid>
+          ))}
+        </Grid>
+      </div>
+    </section>
   )
 }
 

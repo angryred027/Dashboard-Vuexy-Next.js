@@ -134,6 +134,20 @@ export async function GET(req) {
         }
       );
     }
+    else{
+      return NextResponse.json(
+        {
+          success: {
+            message: "No Registered User!"
+          },
+          data: null,
+        },
+        {
+          status: 200,
+          statusText: 'OK'
+        }
+      );
+    }
   } catch (error) {
     return NextResponse.json(
       {
