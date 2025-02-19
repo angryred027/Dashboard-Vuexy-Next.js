@@ -133,49 +133,22 @@ export const authOptions = {
          * in token which then will be available in the `session()` callback
          */
         const getSubscription = async (user) => {
-          if (user) {
-            const subscription = await prisma.subscription.findFirst({
-              where: {
-                userId: user.id,
-              },
-              orderBy: {
-                updatedAt: 'desc',
-              }
-            });
+          if (user?.role !== 'user') return null;
 
-            if (subscription) {
-              const startDate = new Date(subscription.startDate).getDate();
-              const endDate = new Date(subscription.endDate).getDate();
+          const subscription = await prisma.subscription.findFirst({
+            where: { userId: user.id },
+            orderBy: { updatedAt: 'desc' },
+          });
 
-              let status = subscription.status;
-              const planId = subscription.planId;
-              const now = new Date();
-              if (now > endDate) {
-                status = 'expired';
-              }
+          if (!subscription) return null;
 
-              const result = {
-                status: status,
-                planId: planId,
-              }
-              const updatedSub = await prisma.subscription.update({
-                where: {
-                  userId: user.id,
-                },
-                data: {
-                  status: 'expired'
-                }
-              });
-              return result;
-            }
-            else return null;
-          }
-          else {
-            return null;
-          }
+          const endDate = new Date(subscription.endDate);
+          const status = new Date() > endDate ? 'expired' : subscription.status;
+
+          return { status, planId: subscription.planId };
         };
+
         const subscription = await getSubscription(user);
-        // const subscription = null;
 
         token.name = user.name
         token.id = user.id
