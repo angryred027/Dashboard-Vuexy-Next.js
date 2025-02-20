@@ -1,5 +1,6 @@
 // React Imports
 "use client"
+
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 // Next Imports
@@ -35,7 +36,8 @@ const PricingPlan = () => {
   const [loading, setLoading] = useState(false);
   const [clickedId, setClickedId] = useState(-100);
   const [currentPlanId, setCurrentPlanId] = useState(-100);
-  const { data: session, status } = useSession();
+  const [currentPlanStatus, setCurrentPlanStatus] = useState('active');
+  const { data: session, status, update } = useSession();
 
   useEffect(() => {
     getCurrentPlanId();
@@ -48,12 +50,16 @@ const PricingPlan = () => {
       }
     }
     fetchData();
-  }, [session]);
+  }, [status, session]);
 
   const getCurrentPlanId = () => {
     const planId = session?.user?.subscription?.planId;
     if (planId) setCurrentPlanId(planId);
     else return setCurrentPlanId(-100);
+  }
+  const getCurrentPlanStatus = () => {
+    const status = session?.user?.subscription?.status;
+    setCurrentPlanStatus(status);
   }
 
   const getPlanButtonText = (planId) => {
@@ -80,14 +86,32 @@ const PricingPlan = () => {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ user, plan }),
+      credentials: 'include',
     });
 
     const obj = await res.json();
-    if (res.ok) {
+    if (res && res.ok) {
       session.user.subscription = { planId: plan.id, status: 'active' };
-      document.cookie = `session=${encodeURIComponent(JSON.stringify(session))}; path=/`;
-
-      toast.success(obj.success.message, {
+      const updatedSession = await update({
+        subscription: {
+          planId: plan.id,
+          status: "active",
+        },
+      });
+      console.log("updatedSession", updatedSession);
+      if (updatedSession)
+        toast.success(obj.success.message, {
+          position: 'top-right',
+          autoClose: 5000,
+          hideProgressBar: true,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          theme: 'light',
+        });
+    } else {
+      console.error(obj.error);
+      toast.error(obj.error.message, {
         position: 'top-right',
         autoClose: 5000,
         hideProgressBar: true,
@@ -96,8 +120,6 @@ const PricingPlan = () => {
         draggable: true,
         theme: 'light',
       });
-    } else {
-      console.error(obj.error);
     }
   }
 
@@ -222,7 +244,7 @@ const PricingPlan = () => {
                     </div>
                   </div>
                   <div>
-                    <div className='flex flex-col gap-3 mbs-3'>
+                    <div className='flex flex-col gap-3 mbs-3  my-8 h-24'>
                       {plan.benefits.map((feature, index) => (
                         <div key={index} className='flex items-center gap-[12px]'>
                           <CustomAvatar color='primary' skin={plan.current ? 'filled' : 'light'} size={20}>
@@ -238,7 +260,7 @@ const PricingPlan = () => {
                     // component={Link}
                     // href={`/subscription/checkout?amount=${plan.price}`}
                     disabled={(currentPlanId === index + 1) &&
-                      session?.user?.subscription?.status !== 'expired'}
+                      currentPlanStatus === 'active'}
                     onClick={(e) => { handleClick(e, plan) }}
                     variant={(plan.id == index + 1) ? 'contained' : 'tonal'}>
                     {(loading && clickedId == index) ? (

@@ -4,7 +4,7 @@
   "license": "Commercial",
   "private": true,
   "scripts": {
-    "dev": "node db-status.js && next dev --turbopack",
+    "dev": "node db-status.js && next dev -p 4000 --turbopack",
     "build": "next build",
     "start": "node db-status.js && next start",
     "lint": "next lint",

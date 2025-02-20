@@ -98,7 +98,7 @@ const ReferEarn = ({ open, setOpen }) => {
               size='small'
               id='refer-email'
               placeholder='gilvesg@email.com'
-              label=' Enter your friend&#39;s email address and invite them to join Vuexy 😍'
+              label=' Enter your friend&#39;s email address and invite them to join ReddKarma'
             />
             <Button variant='contained' className='max-sm:is-full'>
               Send
@@ -112,7 +112,7 @@ const ReferEarn = ({ open, setOpen }) => {
               fullWidth
               size='small'
               id='refer-social'
-              placeholder='http://pixinvent.link'
+              placeholder='https://server.reddkarma.com'
               label='You can also copy and send it or share it on your social media. 🚀'
               slotProps={{
                 input: {

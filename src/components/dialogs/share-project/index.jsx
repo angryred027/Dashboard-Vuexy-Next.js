@@ -221,7 +221,7 @@ const ShareProject = ({ open, setOpen }) => {
             <Typography
               color='text.primary'
               className='font-medium'
-            >{`Public to ${themeConfig.templateName} - Pixinvent`}</Typography>
+            >{`Public to ${themeConfig.templateName} - ReddKarma`}</Typography>
           </div>
           <Button variant='contained' className='flex' startIcon={<i className='tabler-link text-base' />}>
             Copy Project Link

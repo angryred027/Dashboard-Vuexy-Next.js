@@ -128,7 +128,7 @@ const Payment = ({ data }) => {
       }
     }
   }
-  const renewSubscription = async (user, plan) => {
+  const handleSubscriptionAction = async (user, plan) => {
 
     const data = { user, plan }
     const res = await fetch('/api/subscription', {
@@ -174,7 +174,7 @@ const Payment = ({ data }) => {
       "updatedAt": "2025-02-17T22:28:17.000Z"
     }
     await pay('');
-    await renewSubscription(user, plan);
+    await handleSubscriptionAction(user, plan);
   }
   // Vars
   const buttonProps = {

@@ -126,7 +126,6 @@ export const authOptions = {
      * the `session()` callback. So we have to add custom parameters in `token`
      * via `jwt()` callback to make them accessible in the `session()` callback
      */
-
     async jwt({ token, user }) {
       if (user) {
         /*
@@ -161,6 +160,7 @@ export const authOptions = {
 
       return token
     },
+
     async session({ session, token }) {
       if (session.user) {
         // ** Add custom params to user in session which are added in `jwt()` callback via `token` parameter
@@ -172,7 +172,54 @@ export const authOptions = {
 
       return session
     },
+
+    async signIn({ user, account, profile }) {
+      // Check if the user already exists in the database
+      const existingUser = await prisma.user.findUnique({
+        where: { email: user.email },
+        include: { accounts: true },
+      });
+
+      // If the user doesn't exist, create a new user in the database
+      if (!existingUser) {
+        await prisma.user.create({
+          data: {
+            email: user.email,
+            userName: user.name,
+            fullName: user.name,
+            image: user.image,
+            accounts: {
+              create: {
+                provider: account.provider,
+                providerAccountId: account.providerAccountId,
+                type: account.type,
+              },
+            },
+          },
+        });
+      } else if (existingUser && existingUser.provider !== account.provider) {
+        const existingAccount = existingUser.accounts.find(
+          (acc) => acc.provider === account.provider
+        );
+        // Optionally, update the provider if it differs from the current provider.
+        if (!existingAccount) {
+          // Link new provider account if not already linked
+          await prisma.account.create({
+            data: {
+              userId: existingUser.id,
+              provider: account.provider,
+              providerAccountId: account.providerAccountId,
+              type: account.type,
+            },
+          });
+        }
+      }
+
+      return existingUser;
+    },
+
   },
+
   secret: process.env.NEXTAUTH_SECRET,
   debug: true, // Enable debugging
   allowDangerousEmailAccountLinking: true,
