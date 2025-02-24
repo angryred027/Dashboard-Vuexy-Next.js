@@ -83,12 +83,12 @@ export const authOptions = {
     GoogleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-      authorization: { params: { prompt: 'login' } },
+      authorization: { params: { prompt: 'Select Your Account' } },
     }),
     GitHubProvider({
       clientId: process.env.GITHUB_CLIENT_ID,
       clientSecret: process.env.GITHUB_CLIENT_SECRET,
-      authorization: { params: { prompt: 'login' } },
+      authorization: { params: { prompt: 'Select Your Account' } },
     }),
 
     // ** ...add more providers here
@@ -152,10 +152,7 @@ export const authOptions = {
         };
 
         const subscription = await getSubscription(user);
-        token.name = user.name
-        token.id = user.id
-        token.role = user.role
-        token.subscription = subscription
+        token = { ...token, id: user.id, role: user.role, subscription };
       }
 
       return token
@@ -164,10 +161,14 @@ export const authOptions = {
     async session({ session, token }) {
       if (session.user) {
         // ** Add custom params to user in session which are added in `jwt()` callback via `token` parameter
-        session.user.name = token.name
-        session.user.id = token.id
-        session.user.role = token.role
-        session.user.subscription = token.subscription;
+        // session.user.name = token.name
+        // session.user.id = token.id
+        // session.user.role = token.role
+        // session.user.subscription = token.subscription;
+        session.user = {
+          ...session.user, id: token.id,
+          role: token.role, subscription: token.subscription,
+        }
       }
 
       return session
@@ -197,7 +198,9 @@ export const authOptions = {
             },
           },
         });
-      } else if (existingUser && existingUser.provider !== account.provider) {
+      } else if (existingUser && existingUser.accounts.find((acc) => {
+        acc.provider === account.provider
+      })) {
         const existingAccount = existingUser.accounts.find(
           (acc) => acc.provider === account.provider
         );
@@ -215,7 +218,7 @@ export const authOptions = {
         }
       }
 
-      return existingUser;
+      return true;
     },
 
   },

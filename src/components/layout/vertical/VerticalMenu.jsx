@@ -1,3 +1,4 @@
+'use client';
 // Next Imports
 import { useParams } from 'next/navigation'
 
@@ -21,6 +22,8 @@ import StyledVerticalNavExpandIcon from '@menu/styles/vertical/StyledVerticalNav
 // Style Imports
 import menuItemStyles from '@core/styles/vertical/menuItemStyles'
 import menuSectionStyles from '@core/styles/vertical/menuSectionStyles'
+import { useEffect, useState } from 'react';
+import { useSession } from "next-auth/react";
 
 const RenderExpandIcon = ({ open, transitionDuration }) => (
   <StyledVerticalNavExpandIcon open={open} transitionDuration={transitionDuration}>
@@ -38,7 +41,22 @@ const VerticalMenu = ({ dictionary, scrollMenu }) => {
   const { isBreakpointReached, transitionDuration } = verticalNavOptions
   const { lang: locale } = params
   const ScrollWrapper = isBreakpointReached ? 'div' : PerfectScrollbar
+  const { data: session, status } = useSession();
 
+  const getUserRole = async () => {
+    if (session) return session.user.role;
+    else return null;
+  }
+
+  useEffect(() => {
+    getUserRole();
+  }, [status, session]);
+
+  const [submenuOpen, setSubmenuOpen] = useState(false);
+
+  const handleSubmenuToggle = () => {
+    setSubmenuOpen((prevOpen) => !prevOpen);
+  };
   return (
     <ScrollWrapper
       {...(isBreakpointReached
@@ -58,36 +76,49 @@ const VerticalMenu = ({ dictionary, scrollMenu }) => {
         renderExpandedMenuItemIcon={{ icon: <i className='tabler-circle text-xs' /> }}
         menuSectionStyles={menuSectionStyles(verticalNavOptions, theme)}
       >
-        <SubMenu
-          label={dictionary['navigation'].dashboard}
-          icon={<i className='tabler-user' />}
-          suffix={<CustomChip label='1 +' size='small' color='error' round='true' />}
+        <MenuItem href={`/${locale}/dashboard`}
+          icon={<i className='tabler-home' />}
         >
-          <MenuItem href={`/${locale}/search`}>{dictionary['navigation'].search}</MenuItem>
-          <MenuItem href={`/${locale}/subscription`}>
-            {dictionary['navigation'].subScription}
-          </MenuItem>
-          <MenuItem href={`/${locale}/support`}>
-            {dictionary['navigation'].support}
-          </MenuItem>
-          <MenuItem href={`/${locale}/privacy`}>
-            Privacy Policy
-          </MenuItem>
-          <SubMenu label={dictionary['navigation'].accountSetting}>
-            <MenuItem href={`/${locale}/profile`}>{dictionary['navigation'].profile}</MenuItem>
-            <MenuItem href={`/${locale}/transactions`}>{dictionary['navigation'].transactionHistory}</MenuItem>
-          </SubMenu>
+          {dictionary['navigation'].home}
+        </MenuItem>
+        <MenuItem href={`/${locale}/search`}
+          icon={<i className='tabler-search' />}
+        >
+          {dictionary['navigation'].search}
+        </MenuItem>
+        <MenuItem href={`/${locale}/subscription`}
+          icon={<i className='tabler-currency-dollar' />}
+        >
+          {dictionary['navigation'].subScription}
+        </MenuItem>
+        <MenuItem href={`/${locale}/support`}
+          icon={<i className='tabler-help' />}
+        >
+          {dictionary['navigation'].support}
+        </MenuItem>
+        <MenuItem href={`/${locale}/privacy`}
+          icon={<i className='tabler-shield-question' />}
+        >
+          Privacy Policy
+        </MenuItem>
+        <SubMenu label={dictionary['navigation'].accountSetting}
+          icon={<i className='tabler-user' />}
+        >
+          <MenuItem href={`/${locale}/profile`}>{dictionary['navigation'].profile}</MenuItem>
+          <MenuItem href={`/${locale}/transactions`}>{dictionary['navigation'].transactionHistory}</MenuItem>
         </SubMenu>
-        <MenuSection label={dictionary['navigation'].adminPanel}>
-          <SubMenu label={dictionary['navigation'].administrator} icon={<i className='tabler-lock' />}>
-            <MenuItem href={`/${locale}/admin/settings`}>{dictionary['navigation'].settings}</MenuItem>
-            <MenuItem href={`/${locale}/admin/users`}>{dictionary['navigation'].userManagement}</MenuItem>
-            <MenuItem href={`/${locale}/admin/affiliate-settings`}>{dictionary['navigation'].affiliateSettings}</MenuItem>
-            <MenuItem href={`/${locale}/admin/content`}>{dictionary['navigation'].content}</MenuItem>
-            <MenuItem href={`/${locale}/admin/notifications`}>{dictionary['navigation'].notifications}</MenuItem>
-            <MenuItem href={`/${locale}/admin/logs`}>{dictionary['navigation'].logs}</MenuItem>
-          </SubMenu>
-        </MenuSection>
+        {getUserRole() === 'admin' && (
+          <MenuSection label={dictionary['navigation'].adminPanel}>
+            <SubMenu label={dictionary['navigation'].administrator} icon={<i className='tabler-lock' />}>
+              <MenuItem href={`/${locale}/admin/settings`}>{dictionary['navigation'].settings}</MenuItem>
+              <MenuItem href={`/${locale}/admin/users`}>{dictionary['navigation'].userManagement}</MenuItem>
+              <MenuItem href={`/${locale}/admin/affiliate-settings`}>{dictionary['navigation'].affiliateSettings}</MenuItem>
+              <MenuItem href={`/${locale}/admin/content`}>{dictionary['navigation'].content}</MenuItem>
+              <MenuItem href={`/${locale}/admin/notifications`}>{dictionary['navigation'].notifications}</MenuItem>
+              <MenuItem href={`/${locale}/admin/logs`}>{dictionary['navigation'].logs}</MenuItem>
+            </SubMenu>
+          </MenuSection>
+        )}
       </Menu>
     </ScrollWrapper>
   )

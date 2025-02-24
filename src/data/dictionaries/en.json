@@ -1,8 +1,8 @@
 {
   "navigation": {
-    "dashboard": "Dashboard",
+    "home": "Home",
     "search": "Advanced Search",
-    "subScription": "SubScription",
+    "subScription": "Subscription",
     "support": "Support",
     "privacy": "Privacy Policy",
     "accountSetting": "User Account",
